@@ -14,3 +14,44 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+//@import "../../node_modules/ionic2-auto-complete/auto-complete";
+
+.header::after{
+  background: #FFF;
+}
+
+.searchbar .searchbar-input{
+  box-shadow: none;
+  border-bottom: 1px solid #009d8b;
+}
+
+.toolbar-background{
+  background: #fff;
+}
+
+.category_title{
+  font-size: 2rem;
+  padding-left: 5px;
+  margin-bottom: 15px;
+  margin-top: 0.8rem;
+
+  span{
+    padding-bottom:5px;
+    border-bottom: 3px solid #000;
+  }
+}
+
+.product{
+
+  .toolbar-title{
+    font-size: 14px !important;
+    color: #009d8b !important;
+  }
+
+  .price{
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+  }
+}

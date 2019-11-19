@@ -1,17 +1,80 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <div text-center="">
+    <img class="logo" src="assets/imgs/lg_rond.png" alt="">
+  </div>
+
+  <ion-slides #slides (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <img src="assets/imgs/wallpaper/1.jpg">
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/imgs/wallpaper/2.jpg">
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/imgs/wallpaper/3.jpg">
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/imgs/wallpaper/4.jpg">
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/imgs/wallpaper/5.jpg">
+    </ion-slide>
+  </ion-slides>
+
+
+  <div>
+    <h2 class="category_title">
+      <span>Catégorie</span>
+
+    </h2>
+
+    <ion-row>
+      <ion-col col-6 class="product" (click)="presentProfileModal(1)">
+        <ion-title>Arthro SupReviver</ion-title>
+        <img src="assets/imgs/produits/arthro_sup.png" alt="">
+        <div class="price">25 000 FCFA</div>
+      </ion-col>
+
+      <ion-col col-6 class="product">
+        <ion-title>Arthro SupReviver</ion-title>
+        <img src="assets/imgs/produits/arthro_sup.png" alt="">
+        <div class="price">25 000 FCFA</div>
+      </ion-col>
+    </ion-row>
+    <div class="affiche">
+      <span (click)="openPage('')">
+        Afficher tout
+      </span>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="category_title">
+      <span>Catégorie</span>
+
+    </h2>
+
+    <ion-row>
+      <ion-col col-6 class="product">
+        <ion-title>Arthro SupReviver</ion-title>
+        <img src="assets/imgs/produits/arthro_sup.png" alt="">
+        <div class="price">25 000 FCFA</div>
+      </ion-col>
+
+      <ion-col col-6 class="product">
+        <ion-title>Arthro SupReviver</ion-title>
+        <img src="assets/imgs/produits/arthro_sup.png" alt="">
+        <div class="price">25 000 FCFA</div>
+      </ion-col>
+    </ion-row>
+    <div class="affiche">
+      <span (click)="openPage('')">
+        Afficher tout
+      </span>
+    </div>
+  </div>
+
+
+
 </ion-content>

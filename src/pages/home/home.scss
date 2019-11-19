@@ -1,3 +1,30 @@
 page-home {
 
+
+  .logo{
+    width: 20%;
+  }
+
+  ion-slides{
+    height: 200px;
+    font-weight: bold;
+  }
+
+  ion-slide{
+    img{
+      width: 100% !important;
+      height: 200px !important;
+    }
+  }
+
+
+
+  .affiche{
+    text-align: right;
+    padding: 10px;
+
+    span{
+      text-decoration: underline;
+    }
+  }
 }

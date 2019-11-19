@@ -1,0 +1,29 @@
+<!--
+  Generated template for the ProductListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Categorie</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Recherche"></ion-searchbar>
+
+  <ion-row *ngFor="let i of [1,2,3,4,5]">
+    <ion-col col-6 class="product" (click)="presentProfileModal(i)">
+      <ion-title>Arthro SupReviver</ion-title>
+      <img src="assets/imgs/produits/arthro_sup.png" alt="">
+      <div class="price">25 000 FCFA</div>
+    </ion-col>
+
+    <ion-col col-6 class="product" (click)="presentProfileModal(i)">
+      <ion-title>Arthro SupReviver</ion-title>
+      <img src="assets/imgs/produits/arthro_sup.png" alt="">
+      <div class="price">25 000 FCFA</div>
+    </ion-col>
+  </ion-row>
+</ion-content>
