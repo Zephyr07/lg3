@@ -1,0 +1,27 @@
+page-cart {
+
+  .item{
+    ion-avatar {
+      img{
+        border-radius: 0!important;
+      }
+    }
+  }
+
+  ion-icon{
+    color: #009d8b;
+  }
+
+  ion-list-header{
+    margin-bottom: 0 !important;
+
+    .label{
+      margin:13px 8px 0px 0 !important;
+    }
+  }
+
+  .button-activated{
+    background: #009d8b !important;
+    color: #fff;
+  }
+}
