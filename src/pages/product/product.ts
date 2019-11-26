@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {ApiProvider} from "../../providers/api/api";
+import * as _ from 'lodash';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the ProductPage page.
@@ -16,9 +19,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class ProductPage {
 
   choix:string="info";
+  products:any;
+  product={name:''};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    console.log(this.navParams);
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private api:ApiProvider, public alertCtrl: AlertController, private storage: Storage) {
+
+    this.products=this.api.produits;
+    this.product=_.filter(this.api.produits,{id:this.navParams.get('id')})[0]
   }
 
   ionViewDidLoad() {
@@ -27,6 +35,66 @@ export class ProductPage {
 
   closeModal() {
     this.navCtrl.pop();
+  }
+
+  addCart() {
+    const prompt = this.alertCtrl.create({
+      title: 'Quantité',
+      message: "Entrer la quantité pour ce produit. Quantité Max = 20",
+      inputs: [
+        {
+          name: 'quantity',
+          type: 'number',
+          max:20,
+          min:1,
+          placeholder: 'Quantité'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Valider',
+          handler: data => {
+            console.log('Saved clicked');
+            if(data.quantity>0){
+              if(data.quantity<=20){
+                this.storage.get('commande').then((c)=>{
+                  if(c==null){
+                    c=[];
+                  }
+                  console.log('c',c);
+                  c.push(
+                    {
+                      product:this.product,
+                      quantity:data.quantity
+                    });
+                  console.log(c);
+                  this.storage.set('commande',c).then(r=>{
+                    this.api.doToast(data.quantity+" "+ this.product.name+" ajouté(s) au panier",1000);
+                    data.quantity=0;
+
+                    this.storage.get('commande').then((d)=>{
+                      console.log(d);
+                    });
+                  })
+
+                });
+              }
+              else{
+                this.api.doToast("La quantité maximum pour ce produit est de 20", 2000);
+              }
+
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
 }

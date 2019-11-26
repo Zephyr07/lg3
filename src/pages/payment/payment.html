@@ -7,7 +7,7 @@
     </ion-item>
 
     <ion-card-content>
-      Votre facture s'élève à <strong>{{price | priceFormat}}</strong> F CFA,
+      Votre facture s'élève à <strong>{{price | priceFormat}}</strong> FCFA,
       <br/>
       <div class="divider"></div>
       Merci d'effectuer un dépôt <strong>{{mode}}</strong> au numéro <strong>(+237) {{numero_mode | priceFormat}}</strong> et de renseigner
@@ -15,11 +15,11 @@
 
       <ion-list>
         <ion-item>
-          <ion-input type="text" placeholder="Code de la transaction {{mode}}"></ion-input>
+          <ion-input [(ngModel)]="code_transaction" type="text" placeholder="Code de la transaction {{mode}}"></ion-input>
         </ion-item>
       </ion-list>
 
-      <button ion-button>Valider</button>
+      <button ion-button (click)="saveCommand()">Valider</button>
     </ion-card-content>
   </ion-card>
 

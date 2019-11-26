@@ -11,15 +11,15 @@
       <ion-avatar item-start>
         <img src="assets/imgs/images.png">
       </ion-avatar>
-      <h2>Artro SupReviver</h2>
+      <h2>{{product.name}}</h2>
       <ion-icon name="close" item-end (click)="closeModal()"></ion-icon>
     </ion-item>
 
-    <img src="assets/imgs/produits/arthro_sup.png">
+    <img src="{{product.product_picture.picture1}}">
 
     <div>
       <ion-segment>
-        <ion-segment-button [ngClass]="{'segment-activated': choix=='info'}" (click)="choix='info'">
+        <ion-segment-button [ngClass]="{'segment-activated activated': choix=='info'}" (click)="choix='info'">
           Détails
         </ion-segment-button>
         <ion-segment-button [ngClass]="{'segment-activated': choix=='synopsis'}" (click)="choix='synopsis'">
@@ -33,15 +33,15 @@
 
     <div class="detail" padding="">
       <ion-card *ngIf="choix=='info'">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque distinctio eius expedita natus non nostrum praesentium quasi rerum sed vero. Eaque error facere ipsum quia ratione recusandae rem sapiente, ullam!
+        {{product.description}}
       </ion-card>
 
       <ion-card *ngIf="choix=='synopsis'">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aspernatur delectus dolorem dolores eveniet fuga impedit inventore ipsam, labore maiores obcaecati odit perferendis qui quia quidem quo repudiandae! Necessitatibus, sapiente.
+        {{product.dosage}}
       </ion-card>
 
       <ion-card class="rating" *ngIf="choix=='note'">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolore fugiat hic illum minima omnis temporibus. Beatae exercitationem iste, magni necessitatibus officia optio pariatur reprehenderit, repudiandae rerum sequi vitae voluptas.
+        {{product.composition}}
       </ion-card>
     </div>
 
@@ -52,6 +52,6 @@
 </ion-content>
 <ion-footer text-right="">
 
-  <button ion-button clear class="price">0 000 000 FCFA</button>
-  <button ion-button class="buy">J'achète</button>
+  <button ion-button clear class="price">{{product.price |priceFormat}} FCFA</button>
+  <button ion-button class="buy" (click)="addCart(product.id)">J'achète</button>
 </ion-footer>

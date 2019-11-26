@@ -11,45 +11,76 @@
 </ion-header>
 
 <ion-content >
-  <ion-card>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Tirer pour rafraîchir"
+      refreshingSpinner="dots"
+      refreshingText="Chargement...">
+    </ion-refresher-content>
+  </ion-refresher>
 
-    <ion-item>
+  <ion-grid *ngIf="commande.length>0">
+    <div text-center="">
+      <button ion-button outline [ngClass]="{'button-activated':livraison=='magasin' && commande.length>0}" (click)="choixLivraison('magasin')">
+        Retrait au
+        <br>
+        Magasin
+      </button>
+
+      <button ion-button outline [ngClass]="{'button-activated':livraison=='normal' && commande.length>0}" (click)="choixLivraison('normal')">
+        Livraison
+        <br>
+        Normale
+      </button>
+
+      <button ion-button outline [ngClass]="{'button-activated':livraison=='express' && commande.length>0}" (click)="choixLivraison('express')">
+        Livraison
+        <br>
+        Express
+      </button>
+
+      <div *ngIf="livraison=='magasin'">
+        Situé à Kotto, à l'entrée chefferie
+      </div>
+
+      <div *ngIf="livraison=='normal'">
+        Livraison sous 3 jours
+      </div>
+
+      <div *ngIf="livraison=='express'">
+        Livraison sous 1 jour
+      </div>
+    </div>
+  </ion-grid>
+
+  <ion-card *ngIf="commande.length>0">
+    <ion-item *ngFor="let item of commande">
       <ion-avatar item-start>
-        <img src="assets/imgs/produits/arthro_sup.png">
+        <img src="{{item.product.product_picture.picture1}}">
       </ion-avatar>
-      <h2><strong style="color: #009d8b">10</strong> Arthro SupReviver</h2>
-      <p>75 000 Fcfa.</p>
-      <ion-icon name="remove" item-end></ion-icon>
-      <ion-icon color="danger" name="trash" item-end></ion-icon>
+      <h2><strong style="color: #009d8b">{{item.quantity}}</strong> {{item.product.name}}</h2>
+      <p>{{(item.quantity*item.product.price)|priceFormat}} Fcfa.</p>
+      <ion-icon name="remove" item-end (click)="removeProduct(item)"></ion-icon>
+      <ion-icon color="danger" name="trash" item-end (click)="deleteProduct(item)"></ion-icon>
     </ion-item>
   </ion-card>
 
-  <div text-center="">
-    <button ion-button outline [ngClass]="{'button-activated':livraison=='normal'}" (click)="livraison='normal'">
-      Livraison normal
+  <ion-card *ngIf="!commande.length>0">
+    <ion-card-content>
+      Votre panier est <strong class="vert">vide</strong>
       <br>
-      (1 000 Fcfa)
-    </button>
+      Glisser vers le bas pour actualiser.
+    </ion-card-content>
+  </ion-card>
 
-    <button ion-button outline [ngClass]="{'button-activated':livraison=='express'}" (click)="livraison='express'">
-      Livraison express
-      <br>
-      (2 000 Fcfa)
-    </button>
 
-    <div *ngIf="livraison=='normal'">
-      Livraison sous 3 jours
-    </div>
-
-    <div *ngIf="livraison=='express'">
-      Livraison sous 1 jour
-    </div>
-  </div>
 
 
 </ion-content>
 
 <ion-footer text-right="">
-  <button ion-button clear class="price">000 000 FCFA</button>
-  <button ion-button class="buy" (click)="presentActionSheet()">Commander</button>
+  <button ion-button clear class="price">{{priceTotal | priceFormat}} FCFA</button>
+  <button ion-button *ngIf="commande.length>0" class="buy" (click)="presentActionSheet()">Commander</button>
+  <button ion-button class="buy hide" (click)="viderPanier()">vider</button>
 </ion-footer>

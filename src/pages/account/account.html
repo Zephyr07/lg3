@@ -17,19 +17,25 @@
       Mes infos
     </ion-item>
   </ion-card>
+  <ion-card (click)="openPage(delivery)">
+    <ion-item>
+      Adresse de livraison
+    </ion-item>
+  </ion-card>
   <ion-card (click)="openPage(command)">
     <ion-item>
       Mes commandes
     </ion-item>
   </ion-card>
-
   <ion-card (click)="openPage(partner)">
     <ion-item color="secondary">
-      Dévenir partenaire
+      Devenir partenaire
+    </ion-item>
+  </ion-card>
+  <ion-card (click)="logout()">
+    <ion-item color="danger">
+      Déconnexion
     </ion-item>
   </ion-card>
 
-  <ion-footer text-center="">
-    <button ion-button class="buy" color="danger" (click)="logout()">Déconnexion</button>
-  </ion-footer>
 </ion-content>

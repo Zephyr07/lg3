@@ -3,6 +3,8 @@ import {ModalController, NavController, Slides} from 'ionic-angular';
 import {ProductListPage} from "../product-list/product-list";
 import {ProductPage} from "../product/product";
 import {ApiProvider} from "../../providers/api/api";
+import * as _ from 'lodash';
+
 
 @Component({
   selector: 'page-home',
@@ -12,8 +14,19 @@ export class HomePage {
 
   @ViewChild("slides") slides: Slides;
 
+  products:any;
   constructor(public navCtrl: NavController,public modalCtrl: ModalController, public api: ApiProvider) {
+    this.products=[];
+    let data = _.groupBy(this.api.produits,"category.name");
 
+    for(let i in data){
+      this.products.push({
+        category:i,
+        category_id:data[i][0].category_id,
+        products:data[i]
+      })
+    }
+    console.log(this.products);
 
   }
 
@@ -28,8 +41,9 @@ export class HomePage {
     }
   }
 
-  openPage(text){
-    this.navCtrl.push(ProductListPage);
+  openPage(id){
+    console.log("c",id);
+    this.navCtrl.push(ProductListPage,{category_id:id});
   }
 
   presentProfileModal(id) {

@@ -6,10 +6,29 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>info</ion-title>
+    <ion-title>Mes informations</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
+  <ion-list no-lines="">
+    <ion-item>
+      Nom : <span class="value"></span>
+    </ion-item>
+    <ion-item>
+      Email : <span class="value"></span>
+    </ion-item>
+    <ion-item>
+      Téléphone : <span class="value"></span>
+    </ion-item>
+    <ion-item>
+      Genre : <span class="value" *ngIf="1=='F'">Femme</span>
+      <span class="value" *ngIf="0=='M'">Homme</span>
+    </ion-item>
+    <div text-center>
+      <button ion-button outline color="secondary" (click)="edit()">Modifier</button>
+    </div>
+
+  </ion-list>
 </ion-content>

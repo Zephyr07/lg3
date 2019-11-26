@@ -23,58 +23,25 @@
   </ion-slides>
 
 
-  <div>
+  <div *ngFor="let item of products">
     <h2 class="category_title">
-      <span>Catégorie</span>
+      <span>{{item.category}}</span>
 
     </h2>
 
     <ion-row>
-      <ion-col col-6 class="product" (click)="presentProfileModal(1)">
-        <ion-title>Arthro SupReviver</ion-title>
-        <img src="assets/imgs/wallpaper/arthro_sup.png" alt="">
-        <div class="price_product">25 000 FCFA</div>
-      </ion-col>
-
-      <ion-col col-6 class="product">
-        <ion-title>Liqueur de santé</ion-title>
-        <img src="assets/imgs/produits/vin.png" alt="">
-        <div class="price_product">15 000 FCFA</div>
+      <ion-col col-6 class="product" *ngFor="let i of (item.products ? item.products.slice(0,2): [])" (click)="presentProfileModal(i.id)">
+        <ion-title>{{i.name}}</ion-title>
+        <img src="{{i.product_picture.picture1}}" alt="">
+        <div class="price_product">{{i.price|priceFormat}} FCFA</div>
       </ion-col>
     </ion-row>
     <div class="affiche">
-      <span (click)="openPage('')">
+      <span (click)="openPage(item.category_id)">
         Afficher tout
       </span>
     </div>
   </div>
-
-  <div>
-    <h2 class="category_title">
-      <span>Catégorie</span>
-
-    </h2>
-
-    <ion-row>
-      <ion-col col-6 class="product">
-        <ion-title>Café cordyceps militaris</ion-title>
-        <img src="assets/imgs/produits/cafe.png" alt="">
-        <div class="price_product">15 000 FCFA</div>
-      </ion-col>
-
-      <ion-col col-6 class="product">
-        <ion-title>Thé détox</ion-title>
-        <img src="assets/imgs/produits/the_detox.png" alt="">
-        <div class="price_product">7 500 FCFA</div>
-      </ion-col>
-    </ion-row>
-    <div class="affiche">
-      <span (click)="openPage('')">
-        Afficher tout
-      </span>
-    </div>
-  </div>
-
 
 
 </ion-content>

@@ -19,6 +19,9 @@ import {CommandListPageModule} from "../pages/command-list/command-list.module";
 import {CommandPageModule} from "../pages/command/command.module";
 import {PartnerPageModule} from "../pages/partner/partner.module";
 import {PaymentPageModule} from "../pages/payment/payment.module";
+import {PartnerFormPageModule} from "../pages/partner-form/partner-form.module";
+import {DeliveryPageModule} from "../pages/delivery/delivery.module";
+import {IonicStorageModule} from "@ionic/storage";
 
 @NgModule({
   declarations: [
@@ -39,7 +42,13 @@ import {PaymentPageModule} from "../pages/payment/payment.module";
     CommandListPageModule,
     CommandPageModule,
     PartnerPageModule,
-    ProductListPageModule
+    DeliveryPageModule,
+    PartnerFormPageModule,
+    ProductListPageModule,
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+      driverOrder: ['indexeddb', 'sqlite', 'websql']
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -10,6 +10,169 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
+  <ion-segment>
+    <ion-segment-button [ngClass]="{'segment-activated activated': choix=='presentation'}" (click)="choix='presentation'">
+      Presentation
+    </ion-segment-button>
+    <ion-segment-button [ngClass]="{'segment-activated': choix=='avantages'}" (click)="choix='avantages'">
+      Avantages
+    </ion-segment-button>
+    <ion-segment-button [ngClass]="{'segment-activated': choix=='bonus'}" (click)="choix='bonus'">
+      Bonus
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-card>
+    <ion-card-content *ngIf="choix=='presentation'">
+      <p text-justify>Le business avec Longrich consiste simplement à se décider à consommer des produits d&rsquo;excellent
+        qualité pour notre entretien personnel, et à recommander ou donner conseil autour de nous. Autrement dit,
+        il est question de venir dans la plate forme choisir vos produits que vous allez utiliser
+        (ou vendre si vous le voulez), ensuite d&rsquo;inciter votre entourage à venir choisir les leurs
+        (étant donné que les besoins sont variés) qu&rsquo;ils vont également consommer à la compagnie s&rsquo;engage
+        à très bien nous payer sans compter les avantages qui vont avec.</p>
+
+      <p text-justify>Dans ce business, vous avec besoin minimum de <strong>03 personnes</strong> qui ont compris
+        cette vision, et qui vont la partager autour d&rsquo;eux, afin que tous ceux qui vont simplement relayer
+        l&rsquo;information (en recommandant juste la plate forme) voient leur vie radicalement transformé  par
+        Longrich sur le plan du bien être et des finances. le plan marketing se présente comme suit:
+      </p>
+
+      <p text-justify>
+        <img src="assets/imgs/wallpaper/20.jpg" alt="">
+      </p>
+
+      <p text-justify>
+        Devenir partenaire de <strong>Longrich</strong> est simple comme bonjour. Votre achat fait de vous
+        un membre dans l&rsquo;un des niveaux d’adhésion disponibles Silver, Gold, Platinum et Platinum VIP.
+      </p>
+      <ul>
+        <li>
+          <strong class="vert">PLATINUM VIP</strong> : Vous donne droit à 1680 PV, à 12% des ventes de
+          votre équipe et 1% des ventes mondiales pour un coût d'adhésion de 1 800 000 Fcfa
+          <br>
+          <strong class="vert">Avantage</strong>: les<em><strong> platines VIP</strong></em> sont considérés
+          comme des <strong>mini actionnaires</strong> a Longrich.  à la fin de chaque mois, Longrich prélève 1% du
+          chiffre d&rsquo;affaires (ou des PV) mondiaux, et redistribue à toutes les platine VIP du monde en fonction
+          de la performance de leurs équipes respectives.
+        </li>
+
+        <li>
+          <strong class="vert">
+            PLATINUM
+          </strong> : Vous donne droit à 720 PV et à 12% des ventes de votre équipe pour un coût d'adhésion de 800 000 Fcfa
+        </li>
+        <li>
+          <strong class="vert">GOLD</strong> : Vous donne droit à 240 PV et à 10% des ventes de votre équipe
+          pour un coût d'adhésion de 330 000 Fcfa
+        </li>
+        <li>
+          <strong class="vert">SILVER</strong> : Vous donne droit à 120 PV et à 8% des ventes de votre équipe
+          pour un coût d'adhésion de 150 000 Fcfa
+        </li>
+      </ul>
+
+      <p text-justify>
+        <strong>PV =  point de valeur</strong> : est considéré comme la monnaie de la compagnie pour que votre
+        travail soit toujours le même partout ou vous allez. les PV sont plus importants que tout dans ce business,
+        car c&rsquo;est en fonction des PV que nous sommes payés, et que nous pouvons nous qualifier pour tous
+        les avantages en nature (voyages, voitures, bourses scolaires, maisons). Donc nous cherchons des visionnaires
+        qui ont soif de nos PV.
+      </p>
+      <p text-justify>
+        Vous êtes autorisé à choisir un pack d&rsquo;entrée et à sélectionner les produits de votre choix pour
+        votre investissement et tenir compte du nombre de PV minimum du niveau d&rsquo;adhésion que vous avez choisi.
+        Il existe 2 packs d&rsquo;entrée généralement appelés combos :
+      </p>
+      <ul>
+        <li>Le pack de 90 000 qui vous donne droit à 60 PV</li>
+        <li>Le pack de 24 000 qui vous donne droit à 4 PV</li>
+      </ul>
+      <p text-justify>
+        Nous vous proposons ci dessous le plan marketing exceptionnel de Longrich récemment élaboré qui peut,
+        selon votre dynamisme vous rendre multimilliardaire en quelques mois comme celà se fait un peu partout dans
+        le monde, particulièrement en afrique du Sud, au Ghana, au Nigéria. <strong class="vert">Le Cameroun est déjà en marche</strong>.
+      </p>
+
+      <p>
+        <img src="assets/imgs/wallpaper/21.jpg" alt="">
+      </p>
+      <p>
+        <strong>légende: D</strong> = Diamant qui sont des niveaux d&rsquo;évolution;
+        <br>
+        <strong>SD</strong> = Star Director (à ce niveau, vous êtes considérés comme des actionnaires à Longrich)
+      </p>
+
+    </ion-card-content>
+
+    <ion-card-content *ngIf="choix=='avantages'">
+      <p text-justify>
+        A part les bonus pécuniaires versées directement dans votre compte UBA chaque semaine sur la base
+        du volume de votre équipe,<strong>Longrich </strong>vous plusieurs types de récompense en nature lorsque
+        vous atteingnez (vous et votre réseau) les objectifs fixés par la compagnie. Ceci sans que vous n&rsquo;ayez
+        à sortir 1 franc de votre poche.
+      </p>
+
+      <p text-justify>
+        <strong>1- DES VOYAGES</strong>
+      </p>
+
+      <p>
+        Longrich organise 4 à 5 voyages internationaux chaque année . Les derniers en date en 2019 est pour l'Italie prevu en Decembre.
+        Il est bien de rappelé que ce sont des congés <strong>&laquo;&nbsp;tous frais payés&nbsp;&raquo; </strong>en
+        guise de remerciement pour l&rsquo;excellent travail dont la compagnie estime que vous avez été l&rsquo;auteur.
+        L&rsquo;image ci-dessous reflète le voyage de la chine le 13 septembre 2018.</p>
+      <p text-justify>
+        <img src="assets/imgs/wallpaper/22.jpg" alt="">
+      </p>
+
+      <p text-justify><strong>2- VOITURES</strong></p>
+
+      <p>Il y a chaque année des promotions automobiles. <strong>Longrich</strong> a accordé plus de 200 nouvelles
+        voitures de marque en Afrique en seulement 3 années.
+      </p>
+
+      <p text-justify>
+        <img src="assets/imgs/wallpaper/23.jpg" alt="">
+      </p>
+
+      <p text-justify><strong>3- DES BOURSES </strong><strong>D’ÉTUDES</strong></p>
+
+      <p>Des bourses d&rsquo;études tous frais payés pour des années de formation en Chine ou aux USA que vous pouvez faire vous même,
+        ou vos enfants ou céder à quelqu&rsquo;un qui rempli les conditions de formation.
+      </p>
+      <p text-justify>
+        <img src="assets/imgs/wallpaper/24.jpg" alt="">
+      </p>
+
+      <p>4- DES <strong>MAISONS</strong></p>
+      <p>Lorsque vous atteignez le grade de <strong>Star Director</strong> (ce qui vous confère le statut d&rsquo;actionnaire à longrich), la compagnie vous offre une maison toute neuve d&rsquo;une valeur de 90.000.000 FCFA.</p>
+      <p>
+        <img src="assets/imgs/wallpaper/25.jpg" alt="">
+      </p>
+
+    </ion-card-content>
+
+    <ion-card-content *ngIf="choix=='bonus'">
+      <ol text-justify>
+        <li><strong class="vert">Bonus de parrainage</strong></li>
+        <li><strong class="vert">Bonus de performance</strong> : Votre statut d&rsquo;entrée en tant que Silver est de 8% , Gold est de 10% , Platinum / VIP est de 12% et il détermine votre gain. Le bonus de performance est payé chaque semaine, sur toutes les générations et à l&rsquo;infini.</li>
+        <li><strong class="vert">Bonus de développement</strong> : (10% plat) payée sur 2 des plus hauts points par niveau de jambe de bonus.</li>
+        <li><strong class="vert">Bonus de leadership</strong> : (10% &#8211; 45%) payée sur l&rsquo;arbre de parrainage jusqu&rsquo;à la 12e génération en fonction de votre niveau /classement</li>
+        <li><strong class="vert">Bonus de commande au détail</strong> : (25% &#8211; 50%) payée sur les commandes au détail et les commandes répétées</li>
+      </ol>
+      <p text-justify><strong>Longrich</strong> vous encourage à inviter autant de personnes à faire comme vous lorsque vous la rejoignez. Avec le soutien offert par notre équipe, ces personnes sont enseignées, formées et encouragées à faire autant. C’est une initiative amusante, très excitante et enrichissante.</p>
+      <p text-justify>Le potentiel de gains avec <strong>Longrich</strong> est énorme. Tout ce qu’il vous faut, c’est de la passion, la persévérance et l’action. Les pourcentages de gains augmentent à mesure que vous évoluez. Vos gains explosent au fur et à mesure que votre équipe grandit. Voilà pourquoi il est possible pour un distributeur en seulement 6 mois de gagner 2 millions par mois et de se qualifier pour les voyages et les voitures.</p>
+      <p style="font-weight:400;text-align:justify;">La prime de rendement est payée sur toutes les générations jusqu&rsquo;à l&rsquo;infini. Le plan de compensation est superbe et très généreux, et conduira à une véritable liberté financière. Mais vous devez travailler pour y parvenir. Si vous attendez une situation spécifique, vous ne commencerez jamais.</p>
+      <p>Le meilleur moment pour commencer, <strong>c’est MAINTENANT&#8230;</strong></p>
+      <p style="font-weight:400;text-align:justify;"><strong>NB</strong> : Si vous êtes intéressé pour devenir partenaire de Longrich ou simplement obtenir des produits, appelez nous ou envoyez nous un sms ou message Whatsapp au <strong class="vert">(+237) 691 800 592</strong>. Nous nous ferions le plaisir de vous rappeler immédiatement.</p>
+      <p style="font-weight:400;text-align:justify;">La famille Longrich s&rsquo;agrandit très vite de jours en jours. Nous serions très heureux de vous accueillir et faire chemin avec vous.</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
+
+<ion-footer>
+  <button ion-button block (click)="becomePartner()">Devenir partenaire</button>
+</ion-footer>

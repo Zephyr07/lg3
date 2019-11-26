@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {InfoPage} from "../info/info";
 import {CommandListPage} from "../command-list/command-list";
 import {PartnerPage} from "../partner/partner";
+import {DeliveryPage} from "../delivery/delivery";
 
 /**
  * Generated class for the AccountPage page.
@@ -20,6 +21,7 @@ export class AccountPage {
 
   info=InfoPage;
   command=CommandListPage;
+  delivery=DeliveryPage;
   partner=PartnerPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
