@@ -23,21 +23,21 @@
   </ion-slides>
 
 
-  <div *ngFor="let item of products">
+  <div *ngFor="let item of categories">
     <h2 class="category_title">
-      <span>{{item.category}}</span>
+      <span>{{item.name}}</span>
 
     </h2>
 
     <ion-row>
       <ion-col col-6 class="product" *ngFor="let i of (item.products ? item.products.slice(0,2): [])" (click)="presentProfileModal(i.id)">
         <ion-title>{{i.name}}</ion-title>
-        <img src="{{i.product_picture.picture1}}" alt="">
+        <img src="{{i.picture1}}" alt="">
         <div class="price_product">{{i.price|priceFormat}} FCFA</div>
       </ion-col>
     </ion-row>
     <div class="affiche">
-      <span (click)="openPage(item.category_id)">
+      <span (click)="openPage(item.id)">
         Afficher tout
       </span>
     </div>

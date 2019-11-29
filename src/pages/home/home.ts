@@ -14,20 +14,12 @@ export class HomePage {
 
   @ViewChild("slides") slides: Slides;
 
-  products:any;
+  categories:any;
+
   constructor(public navCtrl: NavController,public modalCtrl: ModalController, public api: ApiProvider) {
-    this.products=[];
-    let data = _.groupBy(this.api.produits,"category.name");
+    this.categories=[];
 
-    for(let i in data){
-      this.products.push({
-        category:i,
-        category_id:data[i][0].category_id,
-        products:data[i]
-      })
-    }
-    console.log(this.products);
-
+    this.getCategory();
   }
 
   ionViewDidLoad() {
@@ -49,6 +41,13 @@ export class HomePage {
   presentProfileModal(id) {
     let profileModal = this.modalCtrl.create(ProductPage, { id: id });
     profileModal.present();
+  }
+
+  getCategory(){
+    this.api.Categories.getList({_includes:"products",should_paginate:false}).subscribe(data=>{
+      this.categories=data;
+      console.log(data);
+    })
   }
 
 }

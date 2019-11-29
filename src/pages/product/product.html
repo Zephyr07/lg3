@@ -15,7 +15,17 @@
       <ion-icon name="close" item-end (click)="closeModal()"></ion-icon>
     </ion-item>
 
-    <img src="{{product.product_picture.picture1}}">
+    <ion-slides #slides (ionSlideDidChange)="slideChanged()">
+      <ion-slide>
+        <img src="{{product.picture1}}">
+      </ion-slide>
+      <ion-slide *ngIf="product.picture2!=undefined && product.picture2!=''">
+        <img src="{{product.picture2}}">
+      </ion-slide>
+      <ion-slide *ngIf="product.picture3!=undefined && product.picture3!=''">
+        <img src="{{product.picture3}}">
+      </ion-slide>
+    </ion-slides>
 
     <div>
       <ion-segment>

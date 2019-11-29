@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {ApiProvider} from "../../providers/api/api";
+import {DeliveryPage} from "../delivery/delivery";
+import * as _ from "lodash";
 
 /**
  * Generated class for the PaymentPage page.
@@ -49,40 +51,85 @@ export class PaymentPage {
   saveCommand(){
     console.log(this.code_transaction);
     if(this.code_transaction!=null){
-      this.showAlert(this.navParams.get('livraison'))
+      console.log(this.commande);
+      let bill={
+        amount:this.prix_total(this.commande),
+        payment_code:this.code_transaction,
+        payment_method:this.mode,
+        customer_id:1,
+        status:'new'
+      }
+      //this.commande.payment_code:this.code_transaction;
+      //this.commande.payment_method:this.mode;
+
+      //this.showAlert(this.navParams.get('livraison'))
+      this.api.Bills.post(bill).subscribe(data=>{
+        console.log(data);
+        //enregistrement des produits
+        for(let v in this.commande){
+          let p={
+            retail_price:this.commande[v].product.price,
+            quantity:this.commande[v].quantity,
+            bill_id:data.body.id,
+            product_id:this.commande[v].product.id
+          };
+          this.saveBillProduct(p);
+        }
+        this.showAlert(this.mode,data.body.id);
+      });
+
     }
     else{
       this.api.doToast("Code de la transaction absent", 2000);
     }
   }
 
-  showAlert(t){
+  showAlert(t,bill_id){
     console.log(t);
     let text="";
 
     if(t=='magasin'){
       text="Votre commande est disponbile dans notre magasin sis au quartier Kotto, entrée chefferie. Ouvert de lundi à samedi de 9h à 19h";
-    }
-    else if(t=='normal'){
-      text = " Votre commande vous sera livrée sous <strong class='vert'> 3 jours</strong> maximum. Notre service de livraison vous contactera sous peu."
-    }
-    else if(t=='express'){
-      text = " Votre commande vous sera livrée sous <strong class='vert'> 24 heures</strong> maximum. Notre service de livraison vous contactera sous peu."
-    }
+      const prompt = this.alertCtrl.create({
+        title: 'Merci pour votre achat',
+        message: text,
+        buttons: [
+          {
+            text: 'Fermer',
+            handler: data => {
+              console.log('Saved clicked');
 
-    const prompt = this.alertCtrl.create({
-      title: 'Merci pour votre achat',
-      message: text,
-      buttons: [
-        {
-          text: 'Fermer',
-          handler: data => {
-            console.log('Saved clicked');
-
+            }
           }
-        }
-      ]
+        ]
+      });
+      prompt.present();
+    }
+    else {
+      this.navCtrl.push(DeliveryPage,{bill_id:bill_id,mode:t});
+    }
+
+  }
+
+  prix_total(commande){
+    let total=0;
+    _.each(commande,function(c){
+      total+= c.quantity* c.product.price;
     });
-    prompt.present();
+    if(this.livraison=='normal'){
+      return total+1000;
+    }
+    else if(this.livraison=='express'){
+      return total+2000;
+    }
+    else{
+      return total;
+    }
+  }
+
+  saveBillProduct(p){
+    this.api.BillProducts.post(p).subscribe(data=>{
+      console.log("Produit",data);
+    })
   }
 }

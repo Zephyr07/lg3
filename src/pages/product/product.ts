@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {AlertController, IonicPage, NavController, NavParams, Slides} from 'ionic-angular';
 import {ApiProvider} from "../../providers/api/api";
 import * as _ from 'lodash';
 import { Storage } from '@ionic/storage';
@@ -25,12 +25,13 @@ export class ProductPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private api:ApiProvider, public alertCtrl: AlertController, private storage: Storage) {
 
-    this.products=this.api.produits;
-    this.product=_.filter(this.api.produits,{id:this.navParams.get('id')})[0]
+    this.getProduct(parseInt(this.navParams.get('id')))
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductPage');
+    this.slides.autoplay=this.api.autoplay_val;
+    this.slides.speed=this.api.slide_speed;
   }
 
   closeModal() {
@@ -80,6 +81,7 @@ export class ProductPage {
 
                     this.storage.get('commande').then((d)=>{
                       console.log(d);
+                      this.closeModal();
                     });
                   })
 
@@ -97,4 +99,18 @@ export class ProductPage {
     prompt.present();
   }
 
+  @ViewChild("slides") slides: Slides;
+  slideChanged(){
+    if(this.slides.isBeginning()){
+      this.slides.startAutoplay();
+    }
+  }
+
+  getProduct(id){
+    console.log(id);
+    this.api.Products.get(id).subscribe(data=>{
+      this.product=data.body;
+      console.log(data);
+    });
+  }
 }

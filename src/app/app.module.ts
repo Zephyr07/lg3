@@ -2,7 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-
+import * as _ from 'lodash';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {ApiProvider} from "../providers/api/api";
@@ -20,8 +20,50 @@ import {CommandPageModule} from "../pages/command/command.module";
 import {PartnerPageModule} from "../pages/partner/partner.module";
 import {PaymentPageModule} from "../pages/payment/payment.module";
 import {PartnerFormPageModule} from "../pages/partner-form/partner-form.module";
-import {DeliveryPageModule} from "../pages/delivery/delivery.module";
 import {IonicStorageModule} from "@ionic/storage";
+import {API_ENDPOINT} from "../services/contants";
+import {RestangularModule} from "ngx-restangular";
+
+export function RestangularConfigFactory(RestangularProvider) {
+  RestangularProvider
+    .setBaseUrl(API_ENDPOINT)
+    .addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+
+      if (operation === 'getList') {
+
+        let newResponse = what;
+        if (data.per_page===undefined) {
+
+          // newResponse = response.data[what]
+          // newResponse.error = response.error
+          return data
+        }
+        newResponse = data.data;
+        newResponse.metadata = _.omit(data, 'data');
+
+
+        return newResponse
+
+      }
+
+      return response
+    })
+    .addFullRequestInterceptor((element, operation, path, url, headers, params) => {
+      /*console.log('element',element);
+      console.log('operation',operation);
+      console.log('what',what);
+      console.log('url',url);
+      console.log('headers',headers);
+      console.log('params',params);*/
+
+      let token = localStorage.getItem('jwt_token');
+      if (token) {
+        headers.Authorization = 'Bearer ' + token;
+        headers['Access-Token'] = token
+      }
+    })
+  ;
+}
 
 @NgModule({
   declarations: [
@@ -31,6 +73,7 @@ import {IonicStorageModule} from "@ionic/storage";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    RestangularModule.forRoot(RestangularConfigFactory),
     TabsPageModule,
     HomePageModule,
     ProductPageModule,
@@ -42,7 +85,6 @@ import {IonicStorageModule} from "@ionic/storage";
     CommandListPageModule,
     CommandPageModule,
     PartnerPageModule,
-    DeliveryPageModule,
     PartnerFormPageModule,
     ProductListPageModule,
     IonicStorageModule.forRoot({

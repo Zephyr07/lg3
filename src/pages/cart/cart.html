@@ -57,7 +57,7 @@
   <ion-card *ngIf="commande.length>0">
     <ion-item *ngFor="let item of commande">
       <ion-avatar item-start>
-        <img src="{{item.product.product_picture.picture1}}">
+        <img src="{{item.product.picture1}}">
       </ion-avatar>
       <h2><strong style="color: #009d8b">{{item.quantity}}</strong> {{item.product.name}}</h2>
       <p>{{(item.quantity*item.product.price)|priceFormat}} Fcfa.</p>

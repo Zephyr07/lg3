@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ToastController} from "ionic-angular";
-
+import {Restangular} from 'ngx-restangular';
 /*
   Generated class for the ApiProvider provider.
 
@@ -12,10 +12,8 @@ import {ToastController} from "ionic-angular";
 export class ApiProvider {
 
   public date_format : string = "Y-M-D";
-
   public autoplay_val=5000;
   public slide_speed=700;
-
   public produits=[
     {
       id:1,
@@ -100,8 +98,49 @@ export class ApiProvider {
 
   ];
 
-  constructor(private toastCtrl: ToastController) {
 
+
+  public Bills: any = this.restangular.service('bills');
+  public BillProducts: any = this.restangular.service('bill_products');
+  public Categories: any = this.restangular.service('categories');
+  public Products: any = this.restangular.service('products');
+
+  constructor(private toastCtrl: ToastController, public restangular: Restangular) {
+    restangular.withConfig((RestangularConfigurer) => {
+      RestangularConfigurer
+      /* .setBaseUrl(API_ENDPOINT)
+
+       .addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+
+         if (operation === 'getList') {
+
+           let newResponse = what;
+           if (data.per_page===undefined) {
+
+             // newResponse = response.data[what]
+             // newResponse.error = response.error
+             return data
+           }
+           newResponse = data.data;
+           newResponse.metadata = _.omit(data, 'data');
+
+
+           return newResponse
+
+         }
+
+         return response
+       })
+
+       /*.addFullRequestInterceptor(function (element, operation, what, url, headers) {
+         let token = localStorage.getItem('jwt_token');
+         if (token) {
+           headers.Authorization = 'Bearer ' + token;
+           headers['Access-Token'] = token
+         }
+       })*/
+      ;
+    });
   }
 
   formarPrice(price){
