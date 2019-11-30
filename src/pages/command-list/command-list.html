@@ -11,20 +11,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-card (click)="detailCommand(1)">
+  <ion-card *ngFor="let item of bills" (click)="detailCommand(item.id)">
     <ion-item>
-      <h2><strong style="color: #009d8b">C-000010</strong>
-        <span style="float: right">10 Déc. 2019</span>
+      <h2><strong style="color: #009d8b">C-{{item.id}}</strong>
+        <span style="float: right">{{item.amount|priceFormat}} Fcfa</span>
       </h2>
-      <p>75 000 Fcfa.</p>
-    </ion-item>
-  </ion-card>
-  <ion-card>
-    <ion-item>
-      <h2><strong style="color: #009d8b">C-000009</strong>
-        <span style="float: right">10 Déc. 2019</span>
-      </h2>
-      <p>175 000 Fcfa.</p>
+      <p>{{item.updated_at}}
+        <span style="float: right;font-weight: bold;">{{item.status|billStatus}}</span>
+      </p>
     </ion-item>
   </ion-card>
 </ion-content>

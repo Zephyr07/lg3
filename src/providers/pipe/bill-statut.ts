@@ -16,13 +16,13 @@ export class BillStatutPipe implements PipeTransform{
     else if(value=='waiting_payment'){
       return "En attente de paiement";
     }
-    else if(value=='waiting_cashier_approval'){
-      return "En attente visa caisse";
+    else if(value=='pending'){
+      return "En attente de livraison";
     }
-    else if(value=='canceled'){
-      return "Extournée";
+    else if(value=='delivered'){
+      return "Livré";
     }
-    else if(value=='paided'){
+    else if(value=='paid'){
       return "Payée";
     }
     else if(value==1){

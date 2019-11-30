@@ -7,7 +7,7 @@
 <ion-content>
 
   <ion-item>
-    <h2>Commande C-00001</h2>
+    <h2>Commande C-{{bill.id}}</h2>
     <ion-icon name="close" item-end (click)="closeModal()"></ion-icon>
   </ion-item>
 
@@ -19,7 +19,27 @@
             Mode de paiement
           </ion-col>
           <ion-col col-9 text-right>
-            <strong>Orange Money</strong>
+            <strong>{{bill.payment_method}}</strong>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item>
+        <ion-row>
+          <ion-col col-3>
+            Statuts
+          </ion-col>
+          <ion-col col-9 text-right>
+            <strong>{{bill.status|billStatus}}</strong>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item>
+        <ion-row>
+          <ion-col col-3>
+            Code transaction
+          </ion-col>
+          <ion-col col-9 text-right>
+            <strong>{{bill.payment_code}}</strong>
           </ion-col>
         </ion-row>
       </ion-item>
@@ -29,7 +49,7 @@
             Date
           </ion-col>
           <ion-col col-9 text-right>
-            10 Déc. 2019
+            {{bill.created_at}}
           </ion-col>
         </ion-row>
       </ion-item>
@@ -39,17 +59,17 @@
             Produits
           </ion-col>
           <ion-col col-4 text-right>
-            75 000 Fcfa
+            {{bill.amount |priceFormat}} Fcfa
           </ion-col>
         </ion-row>
       </ion-item-divider>
       <ion-item>
-        <ion-row>
+        <ion-row *ngFor="let i of bill.bill_products |orderBy:'-product.name'">
           <ion-col col-8>
-            Arthro SupReviver (3)
+            {{i.product.name}} ({{i.quantity}})
           </ion-col>
           <ion-col col-4 text-right>
-            75 000 Fcfa
+            {{i.retail_price*i.quantity | priceFormat}} Fcfa
           </ion-col>
         </ion-row>
       </ion-item>

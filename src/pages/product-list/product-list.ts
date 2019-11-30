@@ -40,7 +40,7 @@ export class ProductListPage {
   }
 
   getProductByCategory(category_id){
-    this.api.Products.getList({_includes:'category',should_paginate:false,'category_id':category_id}).subscribe(data=>{
+    this.api.Products.getList({_includes:'category',should_paginate:false,'category_id':category_id,'_sort':'name', '_sortDir':'asc'}).subscribe(data=>{
       this.products=data;
       console.log(data);
     })

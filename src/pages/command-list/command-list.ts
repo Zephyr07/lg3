@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {CommandPage} from "../command/command";
+import {ApiProvider} from "../../providers/api/api";
 
 /**
  * Generated class for the CommandListPage page.
@@ -16,7 +17,10 @@ import {CommandPage} from "../command/command";
 })
 export class CommandListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  bills=[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private api : ApiProvider) {
+    this.getBills(1);
   }
 
   ionViewDidLoad() {
@@ -27,5 +31,12 @@ export class CommandListPage {
   detailCommand(id){
     let profileModal = this.modalCtrl.create(CommandPage, { id: id });
     profileModal.present();
+  }
+
+  getBills(id){
+    this.api.Bills.getList({should_paginate:false,customer_id:id,'_sort':'updated_at', '_sortDir':'desc'}).subscribe(d=>{
+      console.log("a",d);
+      this.bills=d;
+    })
   }
 }

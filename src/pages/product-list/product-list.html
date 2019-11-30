@@ -11,8 +11,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar placeholder="Recherche"></ion-searchbar>
-
   <ion-row >
     <ion-col col-6 class="product" *ngFor="let i of products" (click)="presentProfileModal(i.id)">
       <ion-title>{{i.name}}</ion-title>
