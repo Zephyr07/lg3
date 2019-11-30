@@ -19,10 +19,13 @@
         </ion-item>
       </ion-list>
 
-      <button ion-button (click)="saveCommand()">Valider</button>
     </ion-card-content>
   </ion-card>
 
 
 
 </ion-content>
+<ion-footer text-right="">
+  <button ion-button *ngIf="state" class="buy" (click)="saveCommand()">Valider</button>
+  <button ion-button *ngIf="is_bill" class="buy" (click)="openDelivery()">Livraison</button>
+</ion-footer>

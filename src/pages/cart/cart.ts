@@ -33,6 +33,13 @@ export class CartPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
               public modalCtrl: ModalController, private storage: Storage, private api : ApiProvider) {
     console.log("ae");
+    if(this.navParams.get('state')==0){
+      this.viderPanier();
+    }
+    else if(this.navParams.get('state')==undefined){
+      console.log("Rien");
+    }
+
     this.init();
   }
 
@@ -119,16 +126,18 @@ export class CartPage {
     //console.log('Begin async operation', refresher);
     this.init();
     setTimeout(() => {
-      //console.log('Async operation has ended');
       refresher.complete();
-    }, 2000);
+    }, 1000);
   }
 
   init(){
     this.storage.get('commande').then((d)=>{
-      console.log(d);
-      this.commande=d;
-      this.priceTotal=this.prix_total(d);
+      this.commande=[];
+      this.priceTotal=0;
+      if(d!=undefined && d!=null){
+        this.commande=d;
+        this.priceTotal=this.prix_total(d);
+      }
     });
   }
 

@@ -3,6 +3,9 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 import {ApiProvider} from "../../providers/api/api";
 import {DeliveryPage} from "../delivery/delivery";
 import * as _ from "lodash";
+import {HomePage} from "../home/home";
+import {CartPage} from "../cart/cart";
+import {Storage} from "@ionic/storage";
 
 /**
  * Generated class for the PaymentPage page.
@@ -24,8 +27,12 @@ export class PaymentPage {
   commande=[];
   numero_mode : number;
   code_transaction: string;
+  state=true;
+  is_bill=false;
+  bill:number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public api : ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
+              public api : ApiProvider, private storage: Storage) {
     this.mode=this.navParams.get('mode');
     this.livraison=this.navParams.get('livraison');
     this.price=this.navParams.get('price');
@@ -64,6 +71,8 @@ export class PaymentPage {
 
       //this.showAlert(this.navParams.get('livraison'))
       this.api.Bills.post(bill).subscribe(data=>{
+        this.state=false;
+        this.is_bill=true;
         console.log(data);
         //enregistrement des produits
         for(let v in this.commande){
@@ -75,7 +84,9 @@ export class PaymentPage {
           };
           this.saveBillProduct(p);
         }
-        this.showAlert(this.mode,data.body.id);
+        console.log("id bill",data.body.id);
+        this.bill=data.body.id;
+        this.showAlert(this.livraison,data.body.id);
       });
 
     }
@@ -89,7 +100,10 @@ export class PaymentPage {
     let text="";
 
     if(t=='magasin'){
-      text="Votre commande est disponbile dans notre magasin sis au quartier Kotto, entrée chefferie. Ouvert de lundi à samedi de 9h à 19h";
+
+      text="Votre commande est disponbile dans notre magasin sis à <strong class='vert'>Douala au quartier Kotto, entrée chefferie</strong>" +
+        " ou à <strong class='vert'> Yaoundé au carrefour Tam - Tam</strong>. Ouvert de lundi à samedi de 9h à 19h";
+
       const prompt = this.alertCtrl.create({
         title: 'Merci pour votre achat',
         message: text,
@@ -98,6 +112,10 @@ export class PaymentPage {
             text: 'Fermer',
             handler: data => {
               console.log('Saved clicked');
+              this.storage.set('commande',undefined).then(d=>{
+                console.log("aze");
+                this.closeModal();
+              })
 
             }
           }
@@ -131,5 +149,9 @@ export class PaymentPage {
     this.api.BillProducts.post(p).subscribe(data=>{
       console.log("Produit",data);
     })
+  }
+
+  openDelivery(){
+    this.navCtrl.push(DeliveryPage,{bill_id:this.bill,mode:this.livraison});
   }
 }

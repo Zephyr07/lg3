@@ -23,6 +23,7 @@ import {PartnerFormPageModule} from "../pages/partner-form/partner-form.module";
 import {IonicStorageModule} from "@ionic/storage";
 import {API_ENDPOINT} from "../services/contants";
 import {RestangularModule} from "ngx-restangular";
+import {DeliveryPageModule} from "../pages/delivery/delivery.module";
 
 export function RestangularConfigFactory(RestangularProvider) {
   RestangularProvider
@@ -82,6 +83,7 @@ export function RestangularConfigFactory(RestangularProvider) {
     SearchPageModule,
     AccountPageModule,
     InfoPageModule,
+    DeliveryPageModule,
     CommandListPageModule,
     CommandPageModule,
     PartnerPageModule,
