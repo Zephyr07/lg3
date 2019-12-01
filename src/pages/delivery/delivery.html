@@ -23,7 +23,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Ville</ion-label>
-      <ion-select [(ngModel)]="dd.town_id">
+      <ion-select [(ngModel)]="dd.town_id" okText="Valider" cancelText="Annuler">
         <ion-option *ngFor="let item of towns" value="{{item.id}}">{{item.name}}
         </ion-option>
       </ion-select>

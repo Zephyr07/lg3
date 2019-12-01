@@ -24,6 +24,9 @@ import {IonicStorageModule} from "@ionic/storage";
 import {API_ENDPOINT} from "../services/contants";
 import {RestangularModule} from "ngx-restangular";
 import {DeliveryPageModule} from "../pages/delivery/delivery.module";
+import {AuthProvider} from "../providers/auth/auth";
+import {ShopListPageModule} from "../pages/shop-list/shop-list.module";
+
 
 export function RestangularConfigFactory(RestangularProvider) {
   RestangularProvider
@@ -83,6 +86,7 @@ export function RestangularConfigFactory(RestangularProvider) {
     SearchPageModule,
     AccountPageModule,
     InfoPageModule,
+    ShopListPageModule,
     DeliveryPageModule,
     CommandListPageModule,
     CommandPageModule,
@@ -103,6 +107,7 @@ export function RestangularConfigFactory(RestangularProvider) {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ApiProvider,
+    AuthProvider,
     LoadingProvider,
   ]
 })

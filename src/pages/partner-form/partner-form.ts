@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {ApiProvider} from "../../providers/api/api";
 
 /**
  * Generated class for the PartnerFormPage page.
@@ -15,12 +16,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PartnerFormPage {
 
-  form:any;
+  form={title:"",name:"",town_id:"",phone:""};
+  towns=[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.form={
-      town:""
-    }
+  constructor(public navCtrl: NavController, public navParams: NavParams, private api : ApiProvider) {
+    this.getTowns();
   }
 
   ionViewDidLoad() {
@@ -32,7 +32,19 @@ export class PartnerFormPage {
   }
 
   savePartner(){
+    this.form.name=this.navParams.get('target')+"|"+this.form.title;
     console.log(this.form);
+    this.api.Partners.post(this.form).subscribe(d=>{
+      console.log(d);
+      this.api.doToast("Vos données ont bien été enregistrées, nous revenons vers vous",3000);
+      this.navCtrl.pop();
+      this.form={title:"",name:"",town_id:"",phone:""};
+    })
   }
 
+  getTowns(){
+    this.api.Towns.getList().subscribe(data=>{
+      this.towns=data;
+    })
+  }
 }

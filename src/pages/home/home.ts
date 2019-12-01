@@ -1,9 +1,10 @@
 import {Component, ViewChild} from '@angular/core';
-import {ModalController, NavController, Slides} from 'ionic-angular';
+import {AlertController, ModalController, NavController, Slides} from 'ionic-angular';
 import {ProductListPage} from "../product-list/product-list";
 import {ProductPage} from "../product/product";
 import {ApiProvider} from "../../providers/api/api";
 import * as _ from 'lodash';
+import {AuthProvider} from "../../providers/auth/auth";
 
 
 @Component({
@@ -16,7 +17,8 @@ export class HomePage {
 
   categories:any;
 
-  constructor(public navCtrl: NavController,public modalCtrl: ModalController, public api: ApiProvider) {
+  constructor(public navCtrl: NavController,public modalCtrl: ModalController, public api: ApiProvider,
+              ) {
     this.categories=[];
 
     this.getCategory();
@@ -34,7 +36,7 @@ export class HomePage {
   }
 
   openPage(id){
-    console.log("c",id);
+    //console.log("c",id);
     this.navCtrl.push(ProductListPage,{category_id:id});
   }
 
@@ -46,7 +48,7 @@ export class HomePage {
   getCategory(){
     this.api.Categories.getList({_includes:"products",should_paginate:false}).subscribe(data=>{
       this.categories=data;
-      console.log(data);
+      //console.log(data);
     })
   }
 

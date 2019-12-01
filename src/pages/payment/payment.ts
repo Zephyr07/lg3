@@ -3,9 +3,8 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 import {ApiProvider} from "../../providers/api/api";
 import {DeliveryPage} from "../delivery/delivery";
 import * as _ from "lodash";
-import {HomePage} from "../home/home";
-import {CartPage} from "../cart/cart";
 import {Storage} from "@ionic/storage";
+import {ShopListPage} from "../shop-list/shop-list";
 
 /**
  * Generated class for the PaymentPage page.
@@ -30,21 +29,33 @@ export class PaymentPage {
   state=true;
   is_bill=false;
   bill:number;
+  user:{customer:{id:0}};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
               public api : ApiProvider, private storage: Storage) {
-    this.mode=this.navParams.get('mode');
-    this.livraison=this.navParams.get('livraison');
-    this.price=this.navParams.get('price');
-    this.commande=this.navParams.get('commande');
-    console.log("a",this.livraison);
+    // recuperation du user
+    this.storage.get("user").then(d=>{
+      this.user=d;
+      // recuperation du customer
+      this.api.Customers.getList({user_id:d.id}).subscribe(da=>{
+        // @ts-ignore
+        console.log("cust",da);
+        this.user.customer=da[0];
 
-    if(this.mode=='MTN Mobile Money'){
-      this.numero_mode=677777777;
-    }
-    else{
-      this.numero_mode=699999999;
-    }
+        this.mode=this.navParams.get('mode');
+        this.livraison=this.navParams.get('livraison');
+        this.price=this.navParams.get('price');
+        this.commande=this.navParams.get('commande');
+        console.log("a",this.livraison);
+
+        if(this.mode=='MTN Mobile Money'){
+          this.numero_mode=677777777;
+        }
+        else{
+          this.numero_mode=699999999;
+        }
+      })
+    });
   }
 
   ionViewDidLoad() {
@@ -63,13 +74,12 @@ export class PaymentPage {
         amount:this.prix_total(this.commande),
         payment_code:this.code_transaction,
         payment_method:this.mode,
-        customer_id:1,
+        customer_id:this.user.customer.id,
         status:'new'
-      }
-      //this.commande.payment_code:this.code_transaction;
-      //this.commande.payment_method:this.mode;
+      };
 
-      //this.showAlert(this.navParams.get('livraison'))
+
+      console.log("bill",bill);
       this.api.Bills.post(bill).subscribe(data=>{
         this.state=false;
         this.is_bill=true;
@@ -101,13 +111,19 @@ export class PaymentPage {
 
     if(t=='magasin'){
 
-      text="Votre commande est disponbile dans notre magasin sis à <strong class='vert'>Douala au quartier Kotto, entrée chefferie</strong>" +
-        " ou à <strong class='vert'> Yaoundé au carrefour Tam - Tam</strong>. Ouvert de lundi à samedi de 9h à 19h";
+      text="Votre commande est disponbile dans une de <strong class='vert'>nos boutiques</strong>. Nous sommes ouvert de lundi à samedi de 9h à 19h";
 
       const prompt = this.alertCtrl.create({
         title: 'Merci pour votre achat',
         message: text,
         buttons: [
+          {
+            text: 'Nos boutiques',
+            handler: data => {
+              this.closeModal();
+              this.navCtrl.push(ShopListPage);
+            }
+          },
           {
             text: 'Fermer',
             handler: data => {

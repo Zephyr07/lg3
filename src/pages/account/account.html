@@ -22,14 +22,9 @@
       Mes commandes
     </ion-item>
   </ion-card>
-  <ion-card (click)="openPage(command)">
+  <ion-card (click)="openPage(shop)">
     <ion-item>
       Nos boutiques
-    </ion-item>
-  </ion-card>
-  <ion-card (click)="openPage(partner)">
-    <ion-item color="secondary">
-      Devenir partenaire
     </ion-item>
   </ion-card>
   <ion-card (click)="openPage(partner)">
@@ -37,7 +32,7 @@
       Devenir Distributeur
     </ion-item>
   </ion-card>
-  <ion-card (click)="logout()">
+  <ion-card *ngIf="state_log" (click)="logout()">
     <ion-item color="danger">
       Déconnexion
     </ion-item>

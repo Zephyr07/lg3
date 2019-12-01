@@ -111,10 +111,10 @@ export class DeliveryPage {
       console.log("succes",data);
       let text="";
       if(this.mode=='normal'){
-        text="Votre commande a bien été enregistré. Votre livraison sera effectuée en <strong class='vert'>3 jours maximum</strong>. Notre équipe de livraison prendra attache avec vous";
+        text="Votre commande a bien été enregistrée. Votre livraison sera effectuée en <strong class='vert'>3 jours maximum</strong>. Notre équipe de livraison prendra attache avec vous.";
       }
       else{
-        text="Votre commande a bien été enregistré. Votre livraison sera effectuée en <strong class='vert'>1 jour maximum</strong>. Notre équipe de livraison prendra attache avec vous";
+        text="Votre commande a bien été enregistrée. Votre livraison sera effectuée en <strong class='vert'>1 jour maximum</strong>. Notre équipe de livraison prendra attache avec vous.";
       }
 
 

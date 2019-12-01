@@ -81,6 +81,6 @@
 
 <ion-footer text-right="">
   <button ion-button clear class="price">{{priceTotal | priceFormat}} FCFA</button>
-  <button ion-button *ngIf="commande.length>0" class="buy" (click)="presentActionSheet()">Commander</button>
+  <button ion-button *ngIf="commande.length>0" class="buy" (click)="checkLogin()">Commander</button>
   <button ion-button class="buy hide" (click)="viderPanier()">vider</button>
 </ion-footer>

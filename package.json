@@ -18,6 +18,7 @@
     "@angular/core": "5.2.11",
     "@angular/forms": "5.2.11",
     "@angular/http": "5.2.11",
+    "@ionic-native/onesignal": "^4.18.0",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/core": "~4.20.0",
@@ -39,6 +40,7 @@
     "ionicons": "3.0.0",
     "lodash": "4.17.5",
     "ngx-restangular": "^2.0.2",
+    "onesignal-cordova-plugin": "2.7.0",
     "page": "^1.11.5",
     "rxjs": "5.5.11",
     "search": "^1.0.0",
@@ -64,7 +66,8 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "onesignal-cordova-plugin": {}
     },
     "platforms": [
       "android"

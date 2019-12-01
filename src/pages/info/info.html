@@ -12,23 +12,58 @@
 
 <ion-content>
 
-  <ion-list no-lines="">
+  <ion-card *ngIf="!edit">
     <ion-item>
-      Nom : <span class="value"></span>
+      Nom : <span class="value">{{user.customer.name}}</span>
     </ion-item>
     <ion-item>
-      Email : <span class="value"></span>
+      Email : <span class="value">{{user.email}}</span>
     </ion-item>
     <ion-item>
-      Téléphone : <span class="value"></span>
+      Téléphone : <span class="value">{{user.customer.phone |priceFormat}}</span>
     </ion-item>
     <ion-item>
-      Genre : <span class="value" *ngIf="1=='F'">Femme</span>
-      <span class="value" *ngIf="0=='M'">Homme</span>
+      Genre : <span class="value" *ngIf="user.customer.gender=='F'">Femme</span>
+      <span class="value" *ngIf="user.customer.gender=='M'">Homme</span>
     </ion-item>
-    <div text-center>
-      <button ion-button outline color="secondary" (click)="edit()">Modifier</button>
-    </div>
+  </ion-card>
 
-  </ion-list>
+  <ion-card *ngIf="edit">
+    <ion-item>
+      <ion-label fixed>Nom</ion-label>
+      <ion-input [(ngModel)]="user.customer.name" type="text" placeholder="Nom"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Téléphone</ion-label>
+      <ion-input [(ngModel)]="user.customer.phone" type="number" placeholder="Téléphone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Genre</ion-label>
+      <ion-select [(ngModel)]="user.customer.gender" okText="Valider" cancelText="Annuler">
+        <ion-option value="F">Femme</ion-option>
+        <ion-option value="M">Homme</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Email</ion-label>
+      <ion-input [(ngModel)]="user.email" type="text" placeholder="Email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Ancien mot de passe</ion-label>
+      <ion-input [(ngModel)]="user.current_password" type="password" placeholder="Ancien mot de passe"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Nouveau mot de passe</ion-label>
+      <ion-input [(ngModel)]="user.password" type="password" placeholder="Nouveau mot de passe"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Confirmer mot de passe</ion-label>
+      <ion-input [(ngModel)]="user.password_confirmation" type="password" placeholder="Confirmer mot de passe"></ion-input>
+    </ion-item>
+  </ion-card>
 </ion-content>
+
+<ion-footer text-right="">
+  <button ion-button class="buy" *ngIf="!edit" (click)="edit=true">Modifier</button>
+  <button ion-button class="buy" *ngIf="edit" (click)="updateInfo()">Enregistrer</button>
+</ion-footer>

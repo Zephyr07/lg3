@@ -20,7 +20,11 @@ export class CommandListPage {
   bills=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private api : ApiProvider) {
-    this.getBills(1);
+    // recuperation du customer
+    this.api.Customers.getList({user_id:this.navParams.get('user_id')}).subscribe(d=>{
+      this.getBills(d[0].id);
+    })
+
   }
 
   ionViewDidLoad() {

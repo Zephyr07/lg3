@@ -28,7 +28,7 @@ export class PartnerPage {
   }
 
   becomePartner(){
-    let profileModal = this.modalCtrl.create(PartnerFormPage, { mode: 'Orange Money', price : 75000});
+    let profileModal = this.modalCtrl.create(PartnerFormPage, { target: 'Partenaire'});
     profileModal.present();
   }
 

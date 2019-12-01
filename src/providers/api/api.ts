@@ -103,9 +103,12 @@ export class ApiProvider {
   public Bills: any = this.restangular.service('bills');
   public BillProducts: any = this.restangular.service('bill_products');
   public Categories: any = this.restangular.service('categories');
+  public Customers: any = this.restangular.service('customers');
   public Deliveries: any = this.restangular.service('deliveries');
+  public Partners: any = this.restangular.service('partners');
   public Products: any = this.restangular.service('products');
   public Towns: any = this.restangular.service('towns');
+  public Users: any = this.restangular.service('users');
 
   constructor(private toastCtrl: ToastController, public restangular: Restangular) {
     restangular.withConfig((RestangularConfigurer) => {

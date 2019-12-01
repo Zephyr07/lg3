@@ -2,7 +2,7 @@
   <ion-card>
 
     <ion-item>
-      <h2>Devenir partenaire</h2>
+      <h2>Devenir partenaire / Grossiste</h2>
       <ion-icon name="close" item-end (click)="closeModal()"></ion-icon>
     </ion-item>
 
@@ -10,16 +10,17 @@
 
       <ion-list>
         <ion-item>
-          <ion-input [(ngModel)]="form.name" type="text" placeholder="Nom"></ion-input>
+          <ion-input [(ngModel)]="form.title" type="text" placeholder="Nom"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input [(ngModel)]="form.phone" type="number" placeholder="Téléphone"></ion-input>
+          <ion-input [(ngModel)]="form.phone" min="200000000" type="number" placeholder="Téléphone"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-select [(ngModel)]="form.town">
-            <ion-option  value="">Ville</ion-option>
-            <ion-option  value="douala"> Douala</ion-option>
+          <ion-label>Ville</ion-label>
+          <ion-select [(ngModel)]="form.town_id" okText="Valider" cancelText="Annuler">
+            <ion-option *ngFor="let item of towns" value="{{item.id}}">{{item.name}}
+            </ion-option>
           </ion-select>
         </ion-item>
       </ion-list>

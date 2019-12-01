@@ -41,12 +41,12 @@ export class ProductPage {
   addCart() {
     const prompt = this.alertCtrl.create({
       title: 'Quantité',
-      message: "Entrer la quantité pour ce produit. Quantité Max = 20",
+      message: "Entrer la quantité pour ce produit.",
       inputs: [
         {
           name: 'quantity',
           type: 'number',
-          max:20,
+          max:100,
           min:1,
           placeholder: 'Quantité'
         },
@@ -62,34 +62,48 @@ export class ProductPage {
           text: 'Valider',
           handler: data => {
             console.log('Saved clicked');
+            let state_in=false;
             if(data.quantity>0){
-              if(data.quantity<=20){
-                this.storage.get('commande').then((c)=>{
-                  if(c==null){
-                    c=[];
+              this.storage.get('commande').then((c)=>{
+                // verification si le produit est déjà dans commande
+                if(c==null){
+                  c=[];
+                  state_in=false;
+                }
+                else{
+                  for(let i in c){
+                    if(c[i].product.name==this.product.name){
+                      state_in=true;
+                    }
                   }
-                  console.log('c',c);
+                }
+
+                if(state_in){ // produit déjà dans la commande
+                  for(let i in c){
+                    if(c[i].product.name==this.product.name){
+                      c[i].quantity=parseInt(c[i].quantity)+parseInt(data.quantity);
+                    }
+                  }
+                }
+                else{ // produit absent
                   c.push(
                     {
                       product:this.product,
                       quantity:data.quantity
                     });
-                  console.log(c);
-                  this.storage.set('commande',c).then(r=>{
-                    this.api.doToast(data.quantity+" "+ this.product.name+" ajouté(s) au panier",1000);
-                    data.quantity=0;
+                }
 
-                    this.storage.get('commande').then((d)=>{
-                      console.log(d);
-                      this.closeModal();
-                    });
-                  })
+                this.storage.set('commande',c).then(r=>{
+                  this.api.doToast(data.quantity+" "+ this.product.name+" ajouté(s) au panier",1000);
+                  data.quantity=0;
 
-                });
-              }
-              else{
-                this.api.doToast("La quantité maximum pour ce produit est de 20", 2000);
-              }
+                  this.storage.get('commande').then((d)=>{
+                    console.log(d);
+                    this.closeModal();
+                  });
+                })
+
+              });
 
             }
           }
