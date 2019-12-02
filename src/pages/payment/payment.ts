@@ -70,14 +70,25 @@ export class PaymentPage {
     console.log(this.code_transaction);
     if(this.code_transaction!=null){
       console.log(this.commande);
-      let bill={
-        amount:this.prix_total(this.commande),
-        payment_code:this.code_transaction,
-        payment_method:this.mode,
-        customer_id:this.user.customer.id,
-        status:'new'
-      };
-
+      let bill={};
+      if(this.livraison=='normal'){
+        bill={
+          amount:this.prix_total(this.commande),
+          payment_code:this.code_transaction,
+          payment_method:this.mode,
+          customer_id:this.user.customer.id,
+          status:'paid'
+        };
+      }
+      else{
+        bill={
+          amount:this.prix_total(this.commande),
+          payment_code:this.code_transaction,
+          payment_method:this.mode,
+          customer_id:this.user.customer.id,
+          status:'pending'
+        };
+      }
 
       console.log("bill",bill);
       this.api.Bills.post(bill).subscribe(data=>{
