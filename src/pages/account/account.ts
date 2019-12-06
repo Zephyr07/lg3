@@ -40,7 +40,7 @@ export class AccountPage {
 
   openPage(t){
     console.log(t);
-    if(t==InfoPage || CommandListPage){
+    if(t==InfoPage || t==CommandListPage){
       // verification si connecté
       this.checkLogin(t);
     }
@@ -182,7 +182,6 @@ export class AccountPage {
           text: 'Enregistrer',
           handler: data => {
             let user={
-              user_id:0,
               name:data.name,
               phone:data.phone,
               email:data.email,

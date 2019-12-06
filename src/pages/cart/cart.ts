@@ -291,7 +291,6 @@ export class CartPage {
           text: 'Enregistrer',
           handler: data => {
             let user={
-              user_id:0,
               name:data.name,
               phone:data.phone,
               email:data.email,

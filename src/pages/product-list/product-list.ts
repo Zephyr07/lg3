@@ -18,7 +18,7 @@ import * as _ from 'lodash';
 })
 export class ProductListPage {
 
-  products=[];
+  products=[{category:{}}];
   name="";
   category_id=0;
 

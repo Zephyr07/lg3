@@ -49,10 +49,10 @@ export class PaymentPage {
         console.log("a",this.livraison);
 
         if(this.mode=='MTN Mobile Money'){
-          this.numero_mode=677777777;
+          this.numero_mode=653679318;
         }
         else{
-          this.numero_mode=699999999;
+          this.numero_mode=698284356;
         }
       })
     });
@@ -77,7 +77,7 @@ export class PaymentPage {
           payment_code:this.code_transaction,
           payment_method:this.mode,
           customer_id:this.user.customer.id,
-          status:'paid'
+          status:'pending_payment'
         };
       }
       else{
@@ -86,7 +86,7 @@ export class PaymentPage {
           payment_code:this.code_transaction,
           payment_method:this.mode,
           customer_id:this.user.customer.id,
-          status:'pending'
+          status:'pending_payment'
         };
       }
 

@@ -17,13 +17,13 @@
 
     <ion-slides #slides (ionSlideDidChange)="slideChanged()">
       <ion-slide>
-        <img src="{{product.picture1}}">
+        <img class="product-image" src="{{product.picture1}}">
       </ion-slide>
       <ion-slide *ngIf="product.picture2!=undefined && product.picture2!=''">
-        <img src="{{product.picture2}}">
+        <img class="product-image" src="{{product.picture2}}">
       </ion-slide>
       <ion-slide *ngIf="product.picture3!=undefined && product.picture3!=''">
-        <img src="{{product.picture3}}">
+        <img class="product-image" src="{{product.picture3}}">
       </ion-slide>
     </ion-slides>
 
@@ -43,6 +43,8 @@
 
     <div class="detail" padding="">
       <ion-card *ngIf="choix=='info'">
+        <strong class="vert">{{product.name}}</strong>
+        <br>
         {{product.description}}
       </ion-card>
 
