@@ -1,4 +1,12 @@
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Tirer pour rafraîchir"
+      refreshingSpinner="dots"
+      refreshingText="Chargement...">
+    </ion-refresher-content>
+  </ion-refresher>
 
   <div text-center="">
     <img class="logo" src="assets/imgs/lg_rond.png" alt="">

@@ -51,7 +51,7 @@ export class AccountPage {
 
   logout(){
     this.auth.logout().then(d=>{
-      this.api.doToast('Deconnecté',2000);
+      this.api.doToast('Déconnecté',2000);
       this.storage.set('user',undefined);
       this.state_log=false;
     })

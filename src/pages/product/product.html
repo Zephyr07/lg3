@@ -5,6 +5,15 @@
   Ionic pages and navigation.
 -->
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Tirer pour rafraîchir"
+      refreshingSpinner="dots"
+      refreshingText="Chargement...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-card>
 
     <ion-item>

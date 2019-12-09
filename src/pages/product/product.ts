@@ -25,7 +25,7 @@ export class ProductPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private api:ApiProvider, public alertCtrl: AlertController, private storage: Storage) {
 
-    this.getProduct(parseInt(this.navParams.get('id')))
+
   }
 
   ionViewDidLoad() {
@@ -126,5 +126,17 @@ export class ProductPage {
       this.product=data.body;
       console.log(data);
     });
+  }
+
+  doRefresh(refresher) {
+    //console.log('Begin async operation', refresher);
+    this.init();
+    setTimeout(() => {
+      refresher.complete();
+    }, 700);
+  }
+
+  init(){
+    this.getProduct(parseInt(this.navParams.get('id')))
   }
 }

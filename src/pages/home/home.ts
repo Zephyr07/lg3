@@ -5,6 +5,7 @@ import {ProductPage} from "../product/product";
 import {ApiProvider} from "../../providers/api/api";
 import * as _ from 'lodash';
 import {AuthProvider} from "../../providers/auth/auth";
+import {LoadingProvider} from "../../providers/loading/loading";
 
 
 @Component({
@@ -18,10 +19,8 @@ export class HomePage {
   categories:any;
 
   constructor(public navCtrl: NavController,public modalCtrl: ModalController, public api: ApiProvider,
-              ) {
-    this.categories=[];
-
-    this.getCategory();
+              public load : LoadingProvider) {
+    this.init();
   }
 
   ionViewDidLoad() {
@@ -46,10 +45,28 @@ export class HomePage {
   }
 
   getCategory(){
+    this.load.show("des produits");
     this.api.Categories.getList({_includes:"products",should_paginate:false}).subscribe(data=>{
       this.categories=data;
       //console.log(data);
+      this.load.close();
+    },d=>{
+      this.load.close();
+      this.api.doToast("Erreur dans le chargement des données, merci d'actualiser la page",5000);
     })
   }
 
+  doRefresh(refresher) {
+    //console.log('Begin async operation', refresher);
+    this.init();
+    setTimeout(() => {
+      refresher.complete();
+    }, 700);
+  }
+
+  init(){
+    this.categories=[];
+
+    this.getCategory();
+  }
 }
