@@ -54,15 +54,21 @@
       <ion-card *ngIf="choix=='info'">
         <strong class="vert">{{product.name}}</strong>
         <br>
-        {{product.description}}
+        <p *ngFor="let item of product.description">
+          {{item}}.
+        </p>
       </ion-card>
 
       <ion-card *ngIf="choix=='synopsis'">
-        {{product.dosage}}
+        <p *ngFor="let item of product.dosage">
+          {{item}}.
+        </p>
       </ion-card>
 
       <ion-card class="rating" *ngIf="choix=='note'">
-        {{product.composition}}
+        <p *ngFor="let item of product.composition">
+          {{item}}.
+        </p>
       </ion-card>
     </div>
 

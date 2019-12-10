@@ -141,7 +141,8 @@ export class AccountPage {
         {
           name: 'phone',
           placeholder: 'Téléphone',
-          type:'number'
+          type:'number',
+          min:200000000
         },
         {
           name: 'gender',

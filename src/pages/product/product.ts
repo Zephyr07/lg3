@@ -3,6 +3,7 @@ import {AlertController, IonicPage, NavController, NavParams, Slides} from 'ioni
 import {ApiProvider} from "../../providers/api/api";
 import * as _ from 'lodash';
 import { Storage } from '@ionic/storage';
+import {LoadingProvider} from "../../providers/loading/loading";
 
 /**
  * Generated class for the ProductPage page.
@@ -22,10 +23,9 @@ export class ProductPage {
   products:any;
   product={name:''};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController, public navParams: NavParams, private load: LoadingProvider,
               private api:ApiProvider, public alertCtrl: AlertController, private storage: Storage) {
-
-
+    this.init();
   }
 
   ionViewDidLoad() {
@@ -121,10 +121,15 @@ export class ProductPage {
   }
 
   getProduct(id){
+    this.load.show("des informations sur le produits");
     console.log(id);
     this.api.Products.get(id).subscribe(data=>{
+      data.body.description=data.body.description.split('.');
+      data.body.dosage=data.body.dosage.split('.');
+      data.body.composition=data.body.composition.split('.');
       this.product=data.body;
       console.log(data);
+      this.load.close();
     });
   }
 

@@ -3,6 +3,7 @@ import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angula
 import {ProductPage} from "../product/product";
 import {ApiProvider} from "../../providers/api/api";
 import * as _ from 'lodash';
+import {LoadingProvider} from "../../providers/loading/loading";
 
 /**
  * Generated class for the ProductListPage page.
@@ -22,9 +23,9 @@ export class ProductListPage {
   name="";
   category_id=0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public  api : ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public  api : ApiProvider, private load: LoadingProvider,) {
 
-
+    this.init();
   }
 
   ionViewDidLoad() {
@@ -37,9 +38,11 @@ export class ProductListPage {
   }
 
   getProductByCategory(category_id){
-    this.api.Products.getList({_includes:'category',should_paginate:false,'category_id':category_id,'_sort':'name', '_sortDir':'asc'}).subscribe(data=>{
+    this.load.show("des produits");
+    this.api.Products.getList({_includes:'category',should_paginate:false,'category_id':category_id,'_sort':'name', '_sortDir':'asc','status':'available'}).subscribe(data=>{
       this.products=data;
       console.log(data);
+      this.load.close();
     })
   }
 
