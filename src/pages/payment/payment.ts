@@ -5,6 +5,7 @@ import {DeliveryPage} from "../delivery/delivery";
 import * as _ from "lodash";
 import {Storage} from "@ionic/storage";
 import {ShopListPage} from "../shop-list/shop-list";
+import {LoadingProvider} from "../../providers/loading/loading";
 
 /**
  * Generated class for the PaymentPage page.
@@ -32,8 +33,9 @@ export class PaymentPage {
   user:{customer:{id:0}};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
-              public api : ApiProvider, private storage: Storage) {
+              public api : ApiProvider, private storage: Storage, private load : LoadingProvider) {
     // recuperation du user
+    this.load.show("",true);
     this.storage.get("user").then(d=>{
       this.user=d;
       // recuperation du customer
@@ -54,7 +56,14 @@ export class PaymentPage {
         else{
           this.numero_mode=698284356;
         }
+        this.load.close();
+      },d=>{
+        this.load.close();
+        this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
       })
+    },d=>{
+      this.load.close();
+      this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
     });
   }
 
@@ -91,6 +100,7 @@ export class PaymentPage {
       }
 
       console.log("bill",bill);
+      this.load.show("",true);
       this.api.Bills.post(bill).subscribe(data=>{
         this.state=false;
         this.is_bill=true;
@@ -108,6 +118,9 @@ export class PaymentPage {
         console.log("id bill",data.body.id);
         this.bill=data.body.id;
         this.showAlert(this.livraison,data.body.id);
+      },d=>{
+        this.load.close();
+        this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
       });
 
     }
@@ -175,6 +188,9 @@ export class PaymentPage {
   saveBillProduct(p){
     this.api.BillProducts.post(p).subscribe(data=>{
       console.log("Produit",data);
+    },d=>{
+      this.load.close();
+      this.api.doToast("Erreur dans le chargement des données, merci de réessayer plus tard",3000);
     })
   }
 

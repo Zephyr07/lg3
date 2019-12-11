@@ -45,7 +45,7 @@ export class HomePage {
   }
 
   getCategory(){
-    this.load.show("des produits");
+    this.load.show("des produits",true);
     this.api.Categories.getList({_includes:"products",should_paginate:false}).subscribe(data=>{
       this.categories=data;
       //console.log(data);

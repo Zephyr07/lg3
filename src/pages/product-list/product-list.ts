@@ -38,11 +38,14 @@ export class ProductListPage {
   }
 
   getProductByCategory(category_id){
-    this.load.show("des produits");
+    this.load.show("des produits",true);
     this.api.Products.getList({_includes:'category',should_paginate:false,'category_id':category_id,'_sort':'name', '_sortDir':'asc','status':'available'}).subscribe(data=>{
       this.products=data;
       console.log(data);
       this.load.close();
+    },d=>{
+      this.load.close();
+      this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
     })
   }
 

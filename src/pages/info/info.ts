@@ -3,6 +3,7 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 import {ApiProvider} from "../../providers/api/api";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Storage} from "@ionic/storage";
+import {LoadingProvider} from "../../providers/loading/loading";
 
 /**
  * Generated class for the InfoPage page.
@@ -21,10 +22,14 @@ export class InfoPage {
   edit:false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api : ApiProvider,public alertCtrl: AlertController,
-              private auth : AuthProvider, private storage: Storage,) {
+              private auth : AuthProvider, private storage: Storage,private load : LoadingProvider) {
+    this.load.show("de vos informations",true);
     this.api.Users.get(this.navParams.get('user_id'),{_includes:'customer'}).subscribe(d=>{
       console.log(d.body);
       this.user=d.body;
+    },d=>{
+      this.load.close();
+      this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
     })
   }
 
@@ -35,6 +40,7 @@ export class InfoPage {
 
   updateInfo() {
     console.log(this.user);
+    this.load.show("Modification...",false);
     // @ts-ignore
     this.user.status="active";
     // @ts-ignore
@@ -54,12 +60,25 @@ export class InfoPage {
           console.log(dd,data);
           // mise à jour du storage
           this.storage.set("user",d).then(da=>{
+            this.load.close();
             this.edit=false;
             this.api.doToast('Compte modifié',2000);
+          },d=>{
+            this.load.close();
+            this.api.doToast("Erreur dans le chargement des données, merci de réessayer plus tard",3000);
           })
+        },d=>{
+          this.load.close();
+          this.api.doToast("Erreur dans le chargement des données, merci de réessayer plus tard",3000);
         })
+      },d=>{
+        this.load.close();
+        this.api.doToast("Erreur dans le chargement des données, merci de réessayer plus tard",3000);
       })
 
+    },d=>{
+      this.load.close();
+      this.api.doToast("Erreur dans le chargement des données, merci de réessayer plus tard",3000);
     });
   }
 }

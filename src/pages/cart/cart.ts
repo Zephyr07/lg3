@@ -12,6 +12,7 @@ import {PaymentPage} from "../payment/payment";
 import * as _ from 'lodash';
 import {ApiProvider} from "../../providers/api/api";
 import {AuthProvider} from "../../providers/auth/auth";
+import {LoadingProvider} from "../../providers/loading/loading";
 
 /**
  * Generated class for the CartPage page.
@@ -33,7 +34,7 @@ export class CartPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
               public modalCtrl: ModalController, private storage: Storage, private api : ApiProvider,
-              public alertCtrl: AlertController, private auth : AuthProvider) {
+              public alertCtrl: AlertController, private auth : AuthProvider, private load : LoadingProvider) {
 
     if(this.navParams.get('state')==0){
       this.viderPanier();
@@ -204,12 +205,6 @@ export class CartPage {
       ],
       buttons: [
         {
-          text: 'Annuler',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
           text: "Créer un compte",
           handler: data => {
             console.log('Cancel clicked');
@@ -221,14 +216,21 @@ export class CartPage {
           handler: data => {
             console.log('Saved clicked');
             console.log(data);
+            this.load.show("Connexion ...",false);
             this.auth.login({email:data.email,password:data.password}).then((rep)=>{
               console.log(rep);
               // @ts-ignore
               this.storage.set('user',rep.user).then(d=>{
                 this.presentActionSheet();
+                this.load.close();
+              },d=>{
+                this.load.close();
+                this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
               })
             },d=>{
               console.log("erreur",d);
+              this.load.close();
+              this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
             })
           }
         }
@@ -276,12 +278,6 @@ export class CartPage {
       ],
       buttons: [
         {
-          text: 'Annuler',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
           text: 'Connexion',
           handler: data => {
             console.log('Cancel clicked');
@@ -301,6 +297,7 @@ export class CartPage {
               password_confirmation:data.password_confirmation
             };
             console.log('Saved clicked');
+            this.load.show("Enregistrement ...",false);
             this.auth.register(user).then((rep)=>{
               console.log(rep);
               // creation du customer
@@ -310,13 +307,20 @@ export class CartPage {
               this.storage.set('user',rep.user).then(d=>{
                 this.api.Customers.post(user).subscribe(d=>{
                   console.log("Customer creer");
+                  this.load.close();
                   this.api.doToast("Compte créé",3000);
                   this.presentActionSheet();
+
                 })
+              },d=>{
+                this.load.close();
+                this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
               });
 
             },d=>{
               console.log("erreur",d);
+              this.load.close();
+              this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
             })
           }
         }

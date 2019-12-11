@@ -121,7 +121,7 @@ export class ProductPage {
   }
 
   getProduct(id){
-    this.load.show("des informations sur le produits");
+    this.load.show("des informations sur le produits",true);
     console.log(id);
     this.api.Products.get(id).subscribe(data=>{
       data.body.description=data.body.description.split('.');
@@ -130,6 +130,9 @@ export class ProductPage {
       this.product=data.body;
       console.log(data);
       this.load.close();
+    },d=>{
+      this.load.close();
+      this.api.doToast("Erreur dans le chargement des données, merci de réessayer plus tard",3000);
     });
   }
 

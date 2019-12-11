@@ -93,12 +93,6 @@ export class AccountPage {
       ],
       buttons: [
         {
-          text: 'Annuler',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
           text: "Créer un compte",
           handler: data => {
             console.log('Cancel clicked');
@@ -166,12 +160,6 @@ export class AccountPage {
         },
       ],
       buttons: [
-        {
-          text: 'Annuler',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
         {
           text: 'Connexion',
           handler: data => {

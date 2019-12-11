@@ -9,10 +9,17 @@ export class LoadingProvider {
   constructor(public loadingCtrl: LoadingController) { }
 
 
-  show(text) {
-    console.log("text");
+  show(text, etat) {
+    let content="";
+    if(etat){
+      content="Chargement "+text
+    }
+    else{
+      content=text;
+    }
+
     this.loader = this.loadingCtrl.create({
-      content: "Chargement "+text
+      content: content
     });
     this.loader.present();
     setTimeout(() => {

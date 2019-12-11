@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {ApiProvider} from "../../providers/api/api";
+import {LoadingProvider} from "../../providers/loading/loading";
 
 /**
  * Generated class for the CommandPage page.
@@ -17,7 +18,7 @@ import {ApiProvider} from "../../providers/api/api";
 export class CommandPage {
   bill={bill_products:[]};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private api : ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private api : ApiProvider, private load: LoadingProvider) {
     this.getBill(this.navParams.get('id'));
   }
 
@@ -30,9 +31,14 @@ export class CommandPage {
   }
 
   getBill(id){
+    this.load.show("de la commande",true);
     this.api.Bills.get(id,{_includes:'bill_products.product'}).subscribe(d=>{
       console.log(d);
       this.bill=d.body;
+      this.load.close();
+    },d=>{
+      this.load.close();
+      this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
     })
   }
 }
