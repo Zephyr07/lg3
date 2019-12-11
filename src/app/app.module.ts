@@ -26,6 +26,8 @@ import {RestangularModule} from "ngx-restangular";
 import {DeliveryPageModule} from "../pages/delivery/delivery.module";
 import {AuthProvider} from "../providers/auth/auth";
 import {ShopListPageModule} from "../pages/shop-list/shop-list.module";
+import {ConditionsPageModule} from "../pages/conditions/conditions.module";
+import {PolitiquePageModule} from "../pages/politique/politique.module";
 
 
 export function RestangularConfigFactory(RestangularProvider) {
@@ -85,6 +87,8 @@ export function RestangularConfigFactory(RestangularProvider) {
     PaymentPageModule,
     SearchPageModule,
     AccountPageModule,
+    ConditionsPageModule,
+    PolitiquePageModule,
     InfoPageModule,
     ShopListPageModule,
     DeliveryPageModule,

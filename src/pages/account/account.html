@@ -32,6 +32,16 @@
       Devenir Distributeur
     </ion-item>
   </ion-card>
+  <ion-card (click)="openPage(politique)">
+    <ion-item color="light">
+      Politique de confidentialité
+    </ion-item>
+  </ion-card>
+  <ion-card (click)="openPage(condition)">
+    <ion-item color="light">
+      Conditions d'utilisation
+    </ion-item>
+  </ion-card>
   <ion-card *ngIf="state_log" (click)="logout()">
     <ion-item color="danger">
       Déconnexion

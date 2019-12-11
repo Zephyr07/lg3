@@ -11,6 +11,15 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Tirer pour rafraîchir"
+      refreshingSpinner="dots"
+      refreshingText="Chargement...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-card *ngFor="let item of bills" (click)="detailCommand(item.id)">
     <ion-item>
       <h2><strong style="color: #009d8b">C-{{item.id}}</strong>
@@ -20,5 +29,13 @@
         <span style="float: right;font-weight: bold;">{{item.status|billStatus}}</span>
       </p>
     </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="bills==undefined || bills.length<=0">
+    <ion-card-content>
+      Vous n'avez <strong class="vert">aucune</strong> facture pour le moment
+      <br>
+      Glisser vers le bas pour actualiser.
+    </ion-card-content>
   </ion-card>
 </ion-content>

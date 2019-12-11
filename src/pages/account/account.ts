@@ -7,6 +7,8 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {Storage} from "@ionic/storage";
 import {ApiProvider} from "../../providers/api/api";
 import {ShopListPage} from "../shop-list/shop-list";
+import {PolitiquePage} from "../politique/politique";
+import {ConditionsPage} from "../conditions/conditions";
 
 /**
  * Generated class for the AccountPage page.
@@ -23,6 +25,8 @@ import {ShopListPage} from "../shop-list/shop-list";
 export class AccountPage {
 
   info=InfoPage;
+  politique=PolitiquePage;
+  condition=ConditionsPage;
   command=CommandListPage;
   partner=PartnerPage;
   state_log=false;

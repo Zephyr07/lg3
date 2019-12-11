@@ -22,4 +22,10 @@
       <div class="price_product">{{i.price|priceFormat}} FCFA</div>
     </ion-col>
   </ion-row>
+
+  <ion-card *ngIf="products==undefined || products.length<=0">
+    <ion-card-content>
+      Aucun produit de correspond à votre recherche.
+    </ion-card-content>
+  </ion-card>
 </ion-content>

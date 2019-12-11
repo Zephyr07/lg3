@@ -16,10 +16,10 @@ import {LoadingProvider} from "../../providers/loading/loading";
   templateUrl: 'command.html',
 })
 export class CommandPage {
-  bill={bill_products:[]};
+  bill={bill_products:[],deliveries:[{}]};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api : ApiProvider, private load: LoadingProvider) {
-    this.getBill(this.navParams.get('id'));
+    this.init();
   }
 
   ionViewDidLoad() {
@@ -32,13 +32,28 @@ export class CommandPage {
 
   getBill(id){
     this.load.show("de la commande",true);
-    this.api.Bills.get(id,{_includes:'bill_products.product'}).subscribe(d=>{
+    this.api.Bills.get(id,{_includes:'bill_products.product,deliveries'}).subscribe(d=>{
       console.log(d);
+      if(d.body.deliveries==undefined){
+        d.body.deliveries=[];
+      }
       this.bill=d.body;
       this.load.close();
     },d=>{
       this.load.close();
       this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
     })
+  }
+
+  doRefresh(refresher) {
+    //console.log('Begin async operation', refresher);
+    this.init();
+    setTimeout(() => {
+      refresher.complete();
+    }, 700);
+  }
+
+  init(){
+    this.getBill(this.navParams.get('id'));
   }
 }

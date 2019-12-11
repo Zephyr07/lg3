@@ -22,13 +22,7 @@ export class CommandListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private api : ApiProvider, private load : LoadingProvider) {
     // recuperation du customer
-    this.load.show("des commandes",true);
-    this.api.Customers.getList({user_id:this.navParams.get('user_id')}).subscribe(d=>{
-      this.getBills(d[0].id);
-    },d=>{
-      this.load.close();
-      this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
-    })
+    this.init();
 
   }
 
@@ -47,6 +41,24 @@ export class CommandListPage {
       console.log("a",d);
       this.load.close();
       this.bills=d;
+    },d=>{
+      this.load.close();
+      this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
+    })
+  }
+
+  doRefresh(refresher) {
+    //console.log('Begin async operation', refresher);
+    this.init();
+    setTimeout(() => {
+      refresher.complete();
+    }, 700);
+  }
+
+  init(){
+    this.load.show("des commandes",true);
+    this.api.Customers.getList({user_id:this.navParams.get('user_id')}).subscribe(d=>{
+      this.getBills(d[0].id);
     },d=>{
       this.load.close();
       this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
