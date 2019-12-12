@@ -17,11 +17,11 @@ import {LoadingProvider} from "../../providers/loading/loading";
 })
 export class PartnerFormPage {
 
-  form={title:"",name:"",town_id:"",phone:""};
+  form={title:"",name:"",town_id:0,phone:"",ville:""};
   towns=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api : ApiProvider,private load : LoadingProvider) {
-    this.getTowns();
+
   }
 
   ionViewDidLoad() {
@@ -34,25 +34,17 @@ export class PartnerFormPage {
 
   savePartner(){
     this.load.show("Enregistrement...",false);
-    this.form.name=this.navParams.get('target')+"|"+this.form.title;
+    this.form.name=this.navParams.get('target')+"|"+this.form.ville+"|"+this.form.title;
     console.log(this.form);
     this.api.Partners.post(this.form).subscribe(d=>{
       console.log(d);
       this.api.doToast("Vos données ont bien été enregistrées, nous revenons vers vous",3000);
       this.navCtrl.pop();
-      this.form={title:"",name:"",town_id:"",phone:""};
+      this.form={title:"",name:"",town_id:1,phone:"",ville:""};
       this.load.close();
-    },d=>{
+    }, d=>{
       this.load.close();
       this.api.doToast("Erreur dans le chargement des données, merci de réessayer plus tard",3000);
-    })
-  }
-
-  getTowns(){
-    this.load.show("des villes",true);
-    this.api.Towns.getList().subscribe(data=>{
-      this.towns=data;
-      this.load.close();
     })
   }
 }

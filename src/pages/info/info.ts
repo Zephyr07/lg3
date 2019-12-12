@@ -27,6 +27,7 @@ export class InfoPage {
     this.api.Users.get(this.navParams.get('user_id'),{_includes:'customer'}).subscribe(d=>{
       console.log(d.body);
       this.user=d.body;
+      this.load.close();
     },d=>{
       this.load.close();
       this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
