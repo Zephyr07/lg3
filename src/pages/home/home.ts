@@ -3,9 +3,9 @@ import {AlertController, ModalController, NavController, Slides} from 'ionic-ang
 import {ProductListPage} from "../product-list/product-list";
 import {ProductPage} from "../product/product";
 import {ApiProvider} from "../../providers/api/api";
-import * as _ from 'lodash';
-import {AuthProvider} from "../../providers/auth/auth";
 import {LoadingProvider} from "../../providers/loading/loading";
+import {CallNumber} from "@ionic-native/call-number";
+
 
 
 @Component({
@@ -19,7 +19,7 @@ export class HomePage {
   categories:any;
 
   constructor(public navCtrl: NavController,public modalCtrl: ModalController, public api: ApiProvider,
-              public load : LoadingProvider) {
+              public load : LoadingProvider, private callNumber: CallNumber) {
     this.init();
   }
 
@@ -68,5 +68,18 @@ export class HomePage {
     this.categories=[];
 
     this.getCategory();
+  }
+
+  callNum(){
+    this.api.doToast('appel',2000);
+    this.callNumber.callNumber("#123#", true)
+      .then(res => {
+        this.api.doToast('ok',2000);
+        console.log('Launched dialer!', res)
+      })
+      .catch(err => {
+        this.api.doToast('echec',2000);
+        console.log('Error launching dialer', err)
+      });
   }
 }

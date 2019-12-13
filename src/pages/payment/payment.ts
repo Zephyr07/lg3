@@ -54,7 +54,7 @@ export class PaymentPage {
           this.numero_mode=653679318;
         }
         else{
-          this.numero_mode=698284356;
+          this.numero_mode=655546897;
         }
         this.load.close();
       },d=>{

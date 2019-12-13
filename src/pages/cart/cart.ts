@@ -66,7 +66,7 @@ export class CartPage {
       const actionSheet = this.actionSheetCtrl.create({
         title: 'Mode de paiement',
         buttons: [
-          {
+          /*{
             text: 'Mtn Mobile Money',
             //role: 'destructive',
             handler: () => {
@@ -80,7 +80,7 @@ export class CartPage {
                 });
               profileModal.present();
             }
-          },{
+          },*/{
             text: 'Orange Money',
             handler: () => {
               console.log('Archive clicked');
