@@ -1,13 +1,12 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, ModalController, NavController, Slides} from 'ionic-angular';
+import {ModalController, NavController, Slides} from 'ionic-angular';
 import {ProductListPage} from "../product-list/product-list";
 import {ProductPage} from "../product/product";
 import {ApiProvider} from "../../providers/api/api";
 import {LoadingProvider} from "../../providers/loading/loading";
-import {CallNumber} from "@ionic-native/call-number";
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
-
-
+declare var SMS:any;
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -15,11 +14,11 @@ import {CallNumber} from "@ionic-native/call-number";
 export class HomePage {
 
   @ViewChild("slides") slides: Slides;
-
   categories:any;
+  products:any;
 
   constructor(public navCtrl: NavController,public modalCtrl: ModalController, public api: ApiProvider,
-              public load : LoadingProvider, private callNumber: CallNumber) {
+              public load : LoadingProvider, public androidPermissions: AndroidPermissions) {
     this.init();
   }
 
@@ -44,10 +43,10 @@ export class HomePage {
     profileModal.present();
   }
 
-  getCategory(){
+  getProducts(){
     this.load.show("des produits",true);
-    this.api.Categories.getList({_includes:"products",should_paginate:false}).subscribe(data=>{
-      this.categories=data;
+    this.api.Products.getList({"status":"available",should_paginate:false,'_sort':'name', '_sortDir':'asc'}).subscribe(data=>{
+      this.products=data;
       //console.log(data);
       this.load.close();
     },d=>{
@@ -65,21 +64,8 @@ export class HomePage {
   }
 
   init(){
-    this.categories=[];
+    this.products=[];
 
-    this.getCategory();
-  }
-
-  callNum(){
-    this.api.doToast('appel',2000);
-    this.callNumber.callNumber("#123#", true)
-      .then(res => {
-        this.api.doToast('ok',2000);
-        console.log('Launched dialer!', res)
-      })
-      .catch(err => {
-        this.api.doToast('echec',2000);
-        console.log('Error launching dialer', err)
-      });
+    this.getProducts();
   }
 }

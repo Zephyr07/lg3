@@ -3,6 +3,7 @@ import {AlertController, IonicPage, ModalController, NavController, NavParams} f
 import {ApiProvider} from "../../providers/api/api";
 import {HomePage} from "../home/home";
 import {Storage} from "@ionic/storage";
+import {LoadingProvider} from "../../providers/loading/loading";
 
 /**
  * Generated class for the DeliveryPage page.
@@ -27,7 +28,7 @@ export class DeliveryPage {
   dd={};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api : ApiProvider,
-              public alertCtrl: AlertController, private storage: Storage) {
+              public alertCtrl: AlertController, private storage: Storage, private load : LoadingProvider) {
     let d=new Date();
     this.bill_id=this.navParams.get("bill_id");
     this.getTowns();
@@ -105,9 +106,11 @@ export class DeliveryPage {
   }
 
   saveDelivery(){
+    this.load.show("Enregistrement",false);
     console.log(this.dd);
 
     this.api.Deliveries.post(this.dd).subscribe(data=>{
+      this.load.close();
       console.log("succes",data);
       let text="";
       if(this.mode=='normal'){
@@ -135,6 +138,9 @@ export class DeliveryPage {
         ]
       });
       prompt.present();
+    },d=>{
+      this.load.close();
+      this.api.doToast("Merci de renseigner tous les champs",3000);
     })
   }
 

@@ -29,6 +29,7 @@ import {ShopListPageModule} from "../pages/shop-list/shop-list.module";
 import {ConditionsPageModule} from "../pages/conditions/conditions.module";
 import {PolitiquePageModule} from "../pages/politique/politique.module";
 import {CallNumber} from "@ionic-native/call-number";
+import {AndroidPermissions} from '@ionic-native/android-permissions/ngx';
 
 
 
@@ -110,6 +111,7 @@ export function RestangularConfigFactory(RestangularProvider) {
   ],
   providers: [
     StatusBar,
+    AndroidPermissions,
     CallNumber,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

@@ -20,6 +20,6 @@ export class MyApp {
     });
 
     // @ts-ignore
-    storage.set("commande",[]);
+    //storage.set("commande",[]);
   }
 }

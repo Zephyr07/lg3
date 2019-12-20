@@ -37,7 +37,7 @@ export class CartPage {
               public alertCtrl: AlertController, private auth : AuthProvider, private load : LoadingProvider) {
 
     if(this.navParams.get('state')==0){
-      this.viderPanier();
+      //this.viderPanier();
     }
     else if(this.navParams.get('state')==undefined){
       console.log("Rien");
@@ -63,10 +63,17 @@ export class CartPage {
 
   presentActionSheet() {
     if(this.livraison!=""){
-      const actionSheet = this.actionSheetCtrl.create({
+      let profileModal = this.modalCtrl.create(PaymentPage,
+        {
+          commande : this.commande,
+          price:this.priceTotal,
+          livraison:this.livraison
+        });
+      profileModal.present();
+      /*const actionSheet = this.actionSheetCtrl.create({
         title: 'Mode de paiement',
         buttons: [
-          /*{
+          {
             text: 'Mtn Mobile Money',
             //role: 'destructive',
             handler: () => {
@@ -80,7 +87,7 @@ export class CartPage {
                 });
               profileModal.present();
             }
-          },*/{
+          },{
             text: 'Orange Money',
             handler: () => {
               console.log('Archive clicked');
@@ -101,7 +108,7 @@ export class CartPage {
           }
         ]
       });
-      actionSheet.present();
+      actionSheet.present();*/
     }
     else{
       this.api.doToast('Merci de selectionner un mode de livraison',2000);
@@ -152,6 +159,11 @@ export class CartPage {
         this.commande=d;
         this.priceTotal=this.prix_total(d);
       }
+      else{
+        console.log("rien dans commande");
+      }
+    },d=>{
+      console.log("rien dans commande");
     });
   }
 
@@ -256,18 +268,13 @@ export class CartPage {
           min:200000000
         },
         {
-          name: 'gender',
-          placeholder: 'Sexe : M ou F',
-          type:'text'
-        },
-        {
           name: 'email',
           placeholder: 'Email',
           type:'email'
         },
         {
           name: 'password',
-          placeholder: 'Mot de passe',
+          placeholder: 'Mot de passe (6 caractères)',
           type:'password'
         },
         {

@@ -143,18 +143,13 @@ export class AccountPage {
           min:200000000
         },
         {
-          name: 'gender',
-          placeholder: 'Sexe : M ou F',
-          type:'text'
-        },
-        {
           name: 'email',
           placeholder: 'Email',
           type:'email'
         },
         {
           name: 'password',
-          placeholder: 'Mot de passe',
+          placeholder: 'Mot de passe (6 caractères)',
           type:'password'
         },
         {

@@ -6,6 +6,7 @@ import * as _ from "lodash";
 import {Storage} from "@ionic/storage";
 import {ShopListPage} from "../shop-list/shop-list";
 import {LoadingProvider} from "../../providers/loading/loading";
+import {CallNumber} from "@ionic-native/call-number";
 
 /**
  * Generated class for the PaymentPage page.
@@ -21,7 +22,6 @@ import {LoadingProvider} from "../../providers/loading/loading";
 })
 export class PaymentPage {
 
-  mode:string = "";
   livraison:string = "";
   price:number;
   commande=[];
@@ -33,7 +33,7 @@ export class PaymentPage {
   user:{customer:{id:0}};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
-              public api : ApiProvider, private storage: Storage, private load : LoadingProvider) {
+              public api : ApiProvider, private storage: Storage, private callNumber: CallNumber, private load : LoadingProvider) {
     // recuperation du user
     this.load.show("",true);
     this.storage.get("user").then(d=>{
@@ -43,27 +43,19 @@ export class PaymentPage {
         // @ts-ignore
         console.log("cust",da);
         this.user.customer=da[0];
-
-        this.mode=this.navParams.get('mode');
         this.livraison=this.navParams.get('livraison');
         this.price=this.navParams.get('price');
         this.commande=this.navParams.get('commande');
         console.log("a",this.livraison);
 
-        if(this.mode=='MTN Mobile Money'){
-          this.numero_mode=653679318;
-        }
-        else{
-          this.numero_mode=655546897;
-        }
         this.load.close();
       },d=>{
         this.load.close();
-        this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
+        this.api.doToast("Erreur dans le chargement des données, merci d'actualiser",3000);
       })
     },d=>{
       this.load.close();
-      this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
+      this.api.doToast("Erreur dans le chargement des données, merci d'actualiser",3000);
     });
   }
 
@@ -79,25 +71,14 @@ export class PaymentPage {
     console.log(this.code_transaction);
     if(this.code_transaction!=null){
       console.log(this.commande);
-      let bill={};
-      if(this.livraison=='normal'){
-        bill={
-          amount:this.prix_total(this.commande),
-          payment_code:this.code_transaction,
-          payment_method:this.mode,
-          customer_id:this.user.customer.id,
-          status:'pending_payment'
-        };
-      }
-      else{
-        bill={
-          amount:this.prix_total(this.commande),
-          payment_code:this.code_transaction,
-          payment_method:this.mode,
-          customer_id:this.user.customer.id,
-          status:'pending_payment'
-        };
-      }
+
+      let bill={
+        amount:this.prix_total(this.commande),
+        payment_code:this.code_transaction,
+        payment_method:"",
+        customer_id:this.user.customer.id,
+        status:'pending_payment'
+      };
 
       console.log("bill",bill);
       this.load.show("",true);
@@ -120,12 +101,12 @@ export class PaymentPage {
         this.showAlert(this.livraison,data.body.id);
       },d=>{
         this.load.close();
-        this.api.doToast("Erreur dans le chargement des données, merci de reessayer plus tard",3000);
+        this.api.doToast("Erreur dans le chargement des données.",3000);
       });
 
     }
     else{
-      this.api.doToast("Code de la transaction absent", 2000);
+      this.api.doToast("Numéro de téléphone absent", 2000);
     }
   }
 
@@ -196,5 +177,18 @@ export class PaymentPage {
 
   openDelivery(){
     this.navCtrl.push(DeliveryPage,{bill_id:this.bill,mode:this.livraison});
+  }
+
+  callNum(montant){
+    //this.api.doToast('',2000);
+    this.callNumber.callNumber("#150*11*655546897*"+montant+"#", true)
+      .then(res => {
+        this.api.doToast('Transaction initiée',2000);
+        console.log('Launched dialer!', res)
+      })
+      .catch(err => {
+        this.api.doToast('echec',2000);
+        console.log('Error launching dialer', err)
+      });
   }
 }

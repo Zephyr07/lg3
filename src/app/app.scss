@@ -43,21 +43,30 @@
 }
 
 .product{
+  padding: 0;
+
+  ion-card{
+    margin:5px;
+    width: calc(100% - 10px);
+  }
 
   img{
-    width: 100%;
+    margin-left:25%;
+    width: 50%;
     height: 150px;
   }
 
   .toolbar-title{
-    font-size: 14px !important;
+    font-size: 17px !important;
     color: #009d8b !important;
+    text-align: center !important;
   }
 
   .price_product{
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     text-align: center;
+    line-height: normal;
   }
 }
 
