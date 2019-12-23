@@ -29,8 +29,6 @@ import {ShopListPageModule} from "../pages/shop-list/shop-list.module";
 import {ConditionsPageModule} from "../pages/conditions/conditions.module";
 import {PolitiquePageModule} from "../pages/politique/politique.module";
 import {CallNumber} from "@ionic-native/call-number";
-import {AndroidPermissions} from '@ionic-native/android-permissions/ngx';
-
 
 
 export function RestangularConfigFactory(RestangularProvider) {
@@ -42,9 +40,6 @@ export function RestangularConfigFactory(RestangularProvider) {
 
         let newResponse = what;
         if (data.per_page===undefined) {
-
-          // newResponse = response.data[what]
-          // newResponse.error = response.error
           return data
         }
         newResponse = data.data;
@@ -58,13 +53,6 @@ export function RestangularConfigFactory(RestangularProvider) {
       return response
     })
     .addFullRequestInterceptor((element, operation, path, url, headers, params) => {
-      /*console.log('element',element);
-      console.log('operation',operation);
-      console.log('what',what);
-      console.log('url',url);
-      console.log('headers',headers);
-      console.log('params',params);*/
-
       let token = localStorage.getItem('jwt_token');
       if (token) {
         headers.Authorization = 'Bearer ' + token;
@@ -111,7 +99,6 @@ export function RestangularConfigFactory(RestangularProvider) {
   ],
   providers: [
     StatusBar,
-    AndroidPermissions,
     CallNumber,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

@@ -1,7 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, Slides} from 'ionic-angular';
 import {ApiProvider} from "../../providers/api/api";
-import * as _ from 'lodash';
 import { Storage } from '@ionic/storage';
 import {LoadingProvider} from "../../providers/loading/loading";
 
@@ -20,7 +19,6 @@ import {LoadingProvider} from "../../providers/loading/loading";
 export class ProductPage {
 
   choix:string="info";
-  products:any;
   product={name:''};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private load: LoadingProvider,

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import {ActionSheetController, IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
-import {PaymentPage} from "../payment/payment";
+import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {PartnerFormPage} from "../partner-form/partner-form";
 
 /**

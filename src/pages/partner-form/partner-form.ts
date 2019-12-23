@@ -18,7 +18,6 @@ import {LoadingProvider} from "../../providers/loading/loading";
 export class PartnerFormPage {
 
   form={title:"",name:"",town_id:0,phone:"",ville:""};
-  towns=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api : ApiProvider,private load : LoadingProvider) {
 

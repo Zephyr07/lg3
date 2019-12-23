@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {ProductPage} from "../product/product";
 import {ApiProvider} from "../../providers/api/api";
-import * as _ from 'lodash';
 import {LoadingProvider} from "../../providers/loading/loading";
 
 /**

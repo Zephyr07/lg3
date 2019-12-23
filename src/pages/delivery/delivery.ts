@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {AlertController, IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {ApiProvider} from "../../providers/api/api";
-import {HomePage} from "../home/home";
 import {Storage} from "@ionic/storage";
 import {LoadingProvider} from "../../providers/loading/loading";
 
@@ -90,9 +89,8 @@ export class DeliveryPage {
       information: "",
       delivery_date: d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":00",
       delivery_max_date: max_date+" "+d.getHours()+":"+d.getMinutes()+":00"
-    }
+    };
 
-    console.log("dd",this.dd);
   }
 
   ionViewDidLoad() {

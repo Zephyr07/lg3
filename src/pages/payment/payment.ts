@@ -75,7 +75,7 @@ export class PaymentPage {
       let bill={
         amount:this.prix_total(this.commande),
         payment_code:this.code_transaction,
-        payment_method:"",
+        payment_method:"Orange Money",
         customer_id:this.user.customer.id,
         status:'pending_payment'
       };
@@ -181,13 +181,13 @@ export class PaymentPage {
 
   callNum(montant){
     //this.api.doToast('',2000);
-    this.callNumber.callNumber("#150*11*655546897*"+montant+"#", true)
+    this.callNumber.callNumber("#150*47*243894*"+montant+"#", true)
       .then(res => {
         this.api.doToast('Transaction initiée',2000);
         console.log('Launched dialer!', res)
       })
       .catch(err => {
-        this.api.doToast('echec',2000);
+        this.api.doToast('Echec dans l\'execution du code USSD',2000);
         console.log('Error launching dialer', err)
       });
   }
