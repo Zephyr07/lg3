@@ -1,0 +1,61 @@
+<ion-content>
+  <ion-card>
+
+    <ion-item>
+      <ion-icon name="close" item-end (click)="closeModal()"></ion-icon>
+    </ion-item>
+
+    <div>
+      <ion-segment>
+        <ion-segment-button [ngClass]="{'segment-activated activated': choix=='login'}" (click)="choix='login'">
+          Connexion
+        </ion-segment-button>
+        <ion-segment-button [ngClass]="{'segment-activated': choix=='register'}" (click)="choix='register'">
+          Enregistrement
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <div class="detail" padding="">
+      <ion-list *ngIf="choix=='login'">
+        <ion-item>
+          <ion-input [(ngModel)]="data.email" type="email" placeholder="Email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="data.password" type="password" placeholder="Mot de passe"></ion-input>
+        </ion-item>
+
+        <button ion-button (click)="login()">Connexion</button>
+      </ion-list>
+
+      <ion-list *ngIf="choix=='register'">
+        <ion-item>
+          <ion-input [(ngModel)]="rdata.name" type="text" placeholder="Nom"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="rdata.email" type="email" placeholder="Email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="rdata.phone" type="number" min="200000000" placeholder="Téléphone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="rdata.gender" type="text" placeholder="M = Masculin, F = féminin"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="rdata.password" type="password" placeholder="Mot de passe"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="rdata.password_confirmation" type="password" placeholder="Confirmer mot de passe"></ion-input>
+        </ion-item>
+
+        <button ion-button (click)="register(rdata)">Créer mon compte</button>
+      </ion-list>
+
+    </div>
+
+  </ion-card>
+
+
+
+</ion-content>
+

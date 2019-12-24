@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {
-  ActionSheetController,
   AlertController,
   IonicPage,
   ModalController,
@@ -13,6 +12,7 @@ import * as _ from 'lodash';
 import {ApiProvider} from "../../providers/api/api";
 import {AuthProvider} from "../../providers/auth/auth";
 import {LoadingProvider} from "../../providers/loading/loading";
+import {LoginPage} from "../login/login";
 
 /**
  * Generated class for the CartPage page.
@@ -32,7 +32,7 @@ export class CartPage {
   commande=[];
   priceTotal=0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
+  constructor(public navCtrl: NavController, public navParams: NavParams,
               public modalCtrl: ModalController, private storage: Storage, private api : ApiProvider,
               public alertCtrl: AlertController, private auth : AuthProvider, private load : LoadingProvider) {
 
@@ -53,12 +53,17 @@ export class CartPage {
   checkLogin(){
     this.storage.get("user").then(d=>{
       if(d==undefined || d==null){
-        this.login();
+        this.presentProfileModal();
       }
       else{
         this.presentActionSheet();
       }
     })
+  }
+
+  presentProfileModal() {
+    let profileModal = this.modalCtrl.create(LoginPage);
+    profileModal.present();
   }
 
   presentActionSheet() {

@@ -96,3 +96,11 @@
 .vert{
   color: #009d8b;
 }
+
+.item{
+  ion-avatar {
+    img{
+      border-radius: 0!important;
+    }
+  }
+}

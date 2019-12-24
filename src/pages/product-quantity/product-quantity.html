@@ -1,0 +1,32 @@
+<ion-content>
+  <ion-card>
+
+    <ion-item>
+      <h2>Quantité</h2>
+      <ion-icon name="close" item-end (click)="closeModal()"></ion-icon>
+    </ion-item>
+
+    <ion-list>
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="{{product.picture1}}">
+        </ion-avatar>
+        <h2>{{product.name}}</h2>
+        <p>{{product.description}}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Quantité</ion-label>
+        <ion-input [(ngModel)]="quantity" type="number" min="1" value="1" placeholder="Quantité souhaité"></ion-input>
+      </ion-item>
+    </ion-list>
+
+  </ion-card>
+
+
+
+</ion-content>
+<ion-footer text-right="">
+  <button ion-button clear class="price">{{product.price*quantity | priceFormat}} FCFA</button>
+  <button ion-button class="buy" (click)="addCart(product.id)">Valider</button>
+</ion-footer>
