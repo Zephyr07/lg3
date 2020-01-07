@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 import { HomePage } from '../home/home';
 import {CartPage} from "../cart/cart";
-import {SearchPage} from "../search/search";
 import {AccountPage} from "../account/account";
+import {PartnerPage} from "../partner/partner";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -11,7 +11,7 @@ import {AccountPage} from "../account/account";
 export class TabsPage {
 
   tab1Root = HomePage;
-  tab2Root = SearchPage;
+  tab2Root = PartnerPage;
   tab3Root = CartPage;
   tab4Root = AccountPage;
 

@@ -31,6 +31,7 @@ import {PolitiquePageModule} from "../pages/politique/politique.module";
 import {CallNumber} from "@ionic-native/call-number";
 import {ProductQuantityPageModule} from "../pages/product-quantity/product-quantity.module";
 import {LoginPageModule} from "../pages/login/login.module";
+import {ContactPageModule} from "../pages/contact/contact.module";
 
 
 export function RestangularConfigFactory(RestangularProvider) {
@@ -74,6 +75,7 @@ export function RestangularConfigFactory(RestangularProvider) {
     IonicModule.forRoot(MyApp),
     RestangularModule.forRoot(RestangularConfigFactory),
     TabsPageModule,
+    ContactPageModule,
     HomePageModule,
     ProductPageModule,
     CartPageModule,

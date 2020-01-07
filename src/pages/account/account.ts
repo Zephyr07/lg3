@@ -10,6 +10,7 @@ import {ShopListPage} from "../shop-list/shop-list";
 import {PolitiquePage} from "../politique/politique";
 import {ConditionsPage} from "../conditions/conditions";
 import {LoginPage} from "../login/login";
+import {ContactPage} from "../contact/contact";
 
 /**
  * Generated class for the AccountPage page.
@@ -29,7 +30,7 @@ export class AccountPage {
   politique=PolitiquePage;
   condition=ConditionsPage;
   command=CommandListPage;
-  partner=PartnerPage;
+  contact=ContactPage;
   state_log=false;
   shop=ShopListPage;
 

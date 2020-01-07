@@ -170,6 +170,18 @@
       <p style="font-weight:400;text-align:justify;">La famille Longrich s&rsquo;agrandit très vite de jours en jours. Nous serions très heureux de vous accueillir et faire chemin avec vous.</p>
     </ion-card-content>
   </ion-card>
+
+  <ion-segment>
+    <ion-segment-button [ngClass]="{'segment-activated activated': choix=='presentation'}" (click)="choix='presentation'">
+      Presentation
+    </ion-segment-button>
+    <ion-segment-button [ngClass]="{'segment-activated': choix=='avantages'}" (click)="choix='avantages'">
+      Avantages
+    </ion-segment-button>
+    <ion-segment-button [ngClass]="{'segment-activated': choix=='bonus'}" (click)="choix='bonus'">
+      Bonus
+    </ion-segment-button>
+  </ion-segment>
 </ion-content>
 
 

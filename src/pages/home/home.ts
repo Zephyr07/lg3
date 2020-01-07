@@ -3,6 +3,7 @@ import {ModalController, NavController, Slides} from 'ionic-angular';
 import {ProductPage} from "../product/product";
 import {ApiProvider} from "../../providers/api/api";
 import {LoadingProvider} from "../../providers/loading/loading";
+import {ProductQuantityPage} from "../product-quantity/product-quantity";
 
 @Component({
   selector: 'page-home',
@@ -12,6 +13,7 @@ export class HomePage {
 
   @ViewChild("slides") slides: Slides;
   products:any;
+  produits:any;
 
   constructor(public navCtrl: NavController,public modalCtrl: ModalController, public api: ApiProvider,
               public load : LoadingProvider) {
@@ -37,7 +39,14 @@ export class HomePage {
   getProducts(){
     this.load.show("des produits",true);
     this.api.Products.getList({"status":"available",should_paginate:false,'_sort':'name', '_sortDir':'asc'}).subscribe(data=>{
+      data.forEach(function(v,k){
+        v.description=v.description.split('.');
+        v.dosage=v.dosage.split('.');
+        v.composition=v.composition.split('.');
+      });
+      console.log(data);
       this.products=data;
+      this.produits=data;
       this.load.close();
     },d=>{
       this.load.close();
@@ -55,5 +64,27 @@ export class HomePage {
   init(){
     this.products=[];
     this.getProducts();
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    this.products=this.produits;
+
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+
+    if (val && val.trim() != '') {
+      this.products = this.products.filter((item) => {
+        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+
+    // if the value is an empty string don't filter the items
+
+  }
+
+  presentProfileModalCart(product) {
+    let profileModal = this.modalCtrl.create(ProductQuantityPage, { product: product });
+    profileModal.present();
   }
 }
