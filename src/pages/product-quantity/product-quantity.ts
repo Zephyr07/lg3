@@ -30,44 +30,51 @@ export class ProductQuantityPage {
     let state_in=false;
     if(this.quantity>0){
       this.storage.get('commande').then((c)=>{
-        // verification si le produit est déjà dans commande
-        if(c==null){
-          c=[];
-          state_in=false;
+        if(c==null || c.length==0){
+          let a=[];
+          //alore creation
+          a.push(
+            {
+              product:this.product,
+              quantity:this.quantity
+            });
+          this.storage.set("commande",a).then(d=>{
+            this.api.doToast(this.quantity+" "+ this.product.name+" ajouté(s) au panier",1000);
+            this.quantity=0;
+            console.log(d);
+            this.closeModal();
+          })
+
         }
         else{
+          // avec des produits
+          // verification de la presence du même produit
           for(let i in c){
             if(c[i].product.name==this.product.name){
               state_in=true;
             }
           }
-        }
-
-        if(state_in){ // produit déjà dans la commande
-          for(let i in c){
-            if(c[i].product.name==this.product.name){
-              c[i].quantity=c[i].quantity+this.quantity;
+          if(state_in){ // produit déjà dans la commande
+            for(let i in c){
+              if(c[i].product.name==this.product.name){
+                c[i].quantity=c[i].quantity+this.quantity;
+              }
             }
           }
-        }
-        else{ // produit absent
-          c.push(
-            {
-              product:this.product,
-              quantity:this.quantity
-            });
-        }
-
-        this.storage.set('commande',c).then(r=>{
-          this.api.doToast(this.quantity+" "+ this.product.name+" ajouté(s) au panier",1000);
-          this.quantity=0;
-
-          this.storage.get('commande').then((d)=>{
-            console.log(d);
+          else{
+            c.push(
+              {
+                product:this.product,
+                quantity:this.quantity
+              });
+          }
+          this.storage.set("commande",c).then(b=>{
+            this.api.doToast(this.quantity+" "+ this.product.name+" ajouté(s) au panier",1000);
+            this.quantity=0;
+            console.log(b);
             this.closeModal();
-          });
-        })
-
+          })
+        }
       });
 
     }

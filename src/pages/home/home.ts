@@ -84,7 +84,14 @@ export class HomePage {
   }
 
   presentProfileModalCart(product) {
-    let profileModal = this.modalCtrl.create(ProductQuantityPage, { product: product });
+    let p={
+      id:product.id,
+      name:product.name,
+      picture1:product.picture1,
+      description:product.description,
+      price:product.price
+    };
+    let profileModal = this.modalCtrl.create(ProductQuantityPage, { product: p });
     profileModal.present();
   }
 }

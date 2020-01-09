@@ -19,7 +19,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 })
 export class LoginPage {
 
-  choix:string="login";
+  choix:string="register";
   data:any={};
   rdata:any={};
 
