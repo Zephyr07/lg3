@@ -12,25 +12,17 @@
 
 <ion-content>
   <ion-card >
-    <ion-item>
-      <h2><strong style="color: #009d8b">Health & Beauty Shop</strong>
-        <span style="float: right">695 981 728</span>
+    <ion-item *ngFor="let item of partners">
+      <h2><strong style="color: #009d8b">{{item.name}}</strong>
+        <span style="float: right">{{item.phone|priceFormat}}</span>
       </h2>
-      <p>Entrée chefferie Kotto
-        <span style="float: right;font-weight: bold;">Douala</span>
+      <p>{{item.district}}
+        <span style="float: right;font-weight: bold;">{{item.town.name}}</span>
       </p>
     </ion-item>
 
-    <ion-item>
-      <h2><strong style="color: #009d8b">Shalom Shop</strong>
-        <span style="float: right">693 051 450</span>
-      </h2>
-      <p>Carrefour TAM-TAM
-        <span style="float: right;font-weight: bold;">Yaoundé</span>
-      </p>
-    </ion-item>
   </ion-card>
 </ion-content>
 <ion-footer text-right="">
-  <button ion-button class="buy" style="width: 50%;" (click)="becomePartner()">Devenir grossiste</button>
+  <a  ion-button href="https://api.whatsapp.com/send?phone=237696870700&text=Bonjour+je+souhaite+devenir+partenaire+Longrich">Devenir partenaire</a>
 </ion-footer>

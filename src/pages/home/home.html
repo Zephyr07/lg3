@@ -32,15 +32,9 @@
   <ion-card class="product-2" *ngFor="let i of products">
     <ion-row>
       <ion-col col-3 (click)="presentProfileModal(i.id)">
-        <ion-slides #slides (ionSlideDidChange)="slideChanged()">
+        <ion-slides>
           <ion-slide>
             <img class="img" src="{{i.picture1}}">
-          </ion-slide>
-          <ion-slide>
-            <img class="img" src="{{i.picture2}}">
-          </ion-slide>
-          <ion-slide>
-            <img class="img" src="{{i.picture3}}">
           </ion-slide>
         </ion-slides>
       </ion-col>
