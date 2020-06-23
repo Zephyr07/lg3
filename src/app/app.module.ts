@@ -32,6 +32,7 @@ import {CallNumber} from "@ionic-native/call-number";
 import {ProductQuantityPageModule} from "../pages/product-quantity/product-quantity.module";
 import {LoginPageModule} from "../pages/login/login.module";
 import {ContactPageModule} from "../pages/contact/contact.module";
+import {StockistPageModule} from "../pages/stockist/stockist.module";
 
 
 export function RestangularConfigFactory(RestangularProvider) {
@@ -89,6 +90,7 @@ export function RestangularConfigFactory(RestangularProvider) {
     InfoPageModule,
     ShopListPageModule,
     DeliveryPageModule,
+    StockistPageModule,
     CommandListPageModule,
     CommandPageModule,
     PartnerPageModule,

@@ -21,7 +21,7 @@
   </ion-refresher>
 
   <ion-grid *ngIf="commande!=undefined && commande.length>0">
-    <div text-center="">
+    <div text-center="" class="hide">
       <button ion-button outline [ngClass]="{'button-activated':livraison=='magasin' && commande.length>0}" (click)="choixLivraison('magasin')">
         Retrait au
         <br>
@@ -57,7 +57,7 @@
   <ion-card *ngIf="commande.length>0">
     <ion-item *ngFor="let item of commande">
       <ion-avatar item-start>
-        <img src="{{item.product.picture1}}">
+        <img src="assets/imgs/product/{{item.product.picture1}}">
       </ion-avatar>
       <h2><strong style="color: #009d8b">{{item.quantity}}</strong> {{item.product.name}}</h2>
       <p>{{(item.quantity*item.product.price)|priceFormat}} Fcfa.</p>
@@ -81,6 +81,6 @@
 
 <ion-footer text-right="">
   <button ion-button clear class="price">{{priceTotal | priceFormat}} FCFA</button>
-  <button ion-button *ngIf="commande.length>0" class="buy" (click)="checkLogin()">Commander</button>
+  <button ion-button *ngIf="commande.length>0" class="buy" (click)="presentActionSheet()">Commander</button>
   <button ion-button class="buy hide" (click)="viderPanier()">vider</button>
 </ion-footer>

@@ -4,6 +4,8 @@ import {ProductPage} from "../product/product";
 import {ApiProvider} from "../../providers/api/api";
 import {LoadingProvider} from "../../providers/loading/loading";
 import {ProductQuantityPage} from "../product-quantity/product-quantity";
+import {PRODUCT_LIST} from '../../data/products';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'page-home',
@@ -14,6 +16,7 @@ export class HomePage {
   @ViewChild("slides") slides: Slides;
   products:any;
   produits:any;
+  productList=PRODUCT_LIST;
 
   constructor(public navCtrl: NavController,public modalCtrl: ModalController, public api: ApiProvider,
               public load : LoadingProvider) {
@@ -38,20 +41,19 @@ export class HomePage {
 
   getProducts(){
     this.load.show("des produits",true);
-    this.api.Products.getList({"status":"available",should_paginate:false,'_sort':'name', '_sortDir':'asc'}).subscribe(data=>{
-      data.forEach(function(v,k){
-        v.description=v.description.split('.');
-        v.dosage=v.dosage.split('.');
-        v.composition=v.composition.split('.');
-      });
-      console.log(data);
-      this.products=data;
-      this.produits=data;
-      this.load.close();
-    },d=>{
-      this.load.close();
-      this.api.doToast("Erreur dans le chargement des données, merci d'actualiser la page",5000);
-    })
+
+    this.productList.forEach(function(v,k){
+      // @ts-ignore
+      v.description=v.description.split('.');
+      // @ts-ignore
+      v.dosage=v.dosage.split('.');
+      // @ts-ignore
+      v.composition=v.composition.split('.');
+    });
+    this.productList=_.sortBy(this.productList, 'name');
+    this.produits=this.productList;
+    this.load.close();
+
   }
 
   doRefresh(refresher) {
@@ -68,13 +70,13 @@ export class HomePage {
 
   getItems(ev: any) {
     // Reset items back to all of the items
-    this.products=this.produits;
+    this.productList=this.produits;
 
     // set val to the value of the searchbar
     const val = ev.target.value;
 
     if (val && val.trim() != '') {
-      this.products = this.products.filter((item) => {
+      this.productList = this.productList.filter((item) => {
         return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }

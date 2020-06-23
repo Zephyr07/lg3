@@ -26,13 +26,13 @@
 
     <ion-slides #slides (ionSlideDidChange)="slideChanged()">
       <ion-slide>
-        <img class="product-image" src="{{product.picture1}}">
+        <img class="product-image" src="assets/imgs/product/{{product.picture1}}">
       </ion-slide>
       <ion-slide *ngIf="product.picture2!=undefined && product.picture2!=''">
-        <img class="product-image" src="{{product.picture2}}">
+        <img class="product-image" src="assets/imgs/product/{{product.picture2}}">
       </ion-slide>
       <ion-slide *ngIf="product.picture3!=undefined && product.picture3!=''">
-        <img class="product-image" src="{{product.picture3}}">
+        <img class="product-image" src="assets/imgs/product/{{product.picture3}}">
       </ion-slide>
     </ion-slides>
 

@@ -29,12 +29,12 @@
 
   <ion-searchbar [(ngModel)]="name" placeholder="Recherche un produit" (ionInput)="getItems($event)"></ion-searchbar>
 
-  <ion-card class="product-2" *ngFor="let i of products">
+  <ion-card class="product-2" *ngFor="let i of productList">
     <ion-row>
       <ion-col col-3 (click)="presentProfileModal(i.id)">
         <ion-slides>
           <ion-slide>
-            <img class="img" src="{{i.picture1}}">
+            <img class="img" src="assets/imgs/product/{{i.picture1}}">
           </ion-slide>
         </ion-slides>
       </ion-col>

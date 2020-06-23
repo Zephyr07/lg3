@@ -3,6 +3,8 @@ import { IonicPage, ModalController, NavController, NavParams, Slides} from 'ion
 import {ApiProvider} from "../../providers/api/api";
 import {LoadingProvider} from "../../providers/loading/loading";
 import {ProductQuantityPage} from "../product-quantity/product-quantity";
+import {PRODUCT_LIST} from '../../data/products';
+import * as _ from 'lodash';
 
 /**
  * Generated class for the ProductPage page.
@@ -27,7 +29,6 @@ export class ProductPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductPage');
     this.slides.autoplay=this.api.autoplay_val;
     this.slides.speed=this.api.slide_speed;
   }
@@ -50,19 +51,18 @@ export class ProductPage {
   }
 
   getProduct(id){
-    this.load.show("des informations sur le produits",true);
-    console.log(id);
-    this.api.Products.get(id).subscribe(data=>{
-      data.body.description=data.body.description.split('.');
-      data.body.dosage=data.body.dosage.split('.');
-      data.body.composition=data.body.composition.split('.');
-      this.product=data.body;
-      console.log(data);
-      this.load.close();
-    },d=>{
-      this.load.close();
-      this.api.doToast("Erreur dans le chargement des données, merci de réessayer plus tard",3000);
-    });
+    //this.load.show("des informations sur le produit",true);
+    let data = _.find(PRODUCT_LIST,{id:id});
+    console.log(data);
+    this.product = data;
+    /*/ @ts-ignore
+    this.product.description=this.product.description.split('.');
+    // @ts-ignore
+    this.product.dosage=this.product.dosage.split('.');
+    // @ts-ignore
+    this.product.composition=this.product.composition.split('.');
+    */
+    //this.load.close();
   }
 
   doRefresh(refresher) {
@@ -74,6 +74,7 @@ export class ProductPage {
   }
 
   init(){
+    //this.getProduct(14)
     this.getProduct(parseInt(this.navParams.get('id')))
   }
 }

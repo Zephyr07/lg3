@@ -7,12 +7,12 @@ import {
   NavParams
 } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import {PaymentPage} from "../payment/payment";
 import * as _ from 'lodash';
 import {ApiProvider} from "../../providers/api/api";
 import {AuthProvider} from "../../providers/auth/auth";
 import {LoadingProvider} from "../../providers/loading/loading";
 import {LoginPage} from "../login/login";
+import {StockistPage} from "../stockist/stockist";
 
 /**
  * Generated class for the CartPage page.
@@ -67,7 +67,13 @@ export class CartPage {
   }
 
   presentActionSheet() {
-    if(this.livraison!=""){
+    this.navCtrl.push(StockistPage,
+      {
+        commande : this.commande,
+        price:this.priceTotal}
+        );
+
+    /*if(this.livraison!=""){
       let profileModal = this.modalCtrl.create(PaymentPage,
         {
           commande : this.commande,
@@ -113,11 +119,11 @@ export class CartPage {
           }
         ]
       });
-      actionSheet.present();*/
+      actionSheet.present();*
     }
     else{
       this.api.doToast('Merci de selectionner un mode de livraison',2000);
-    }
+    }*/
 
   }
 

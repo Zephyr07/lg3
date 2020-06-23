@@ -6,25 +6,25 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Mon compte</ion-title>
+    <ion-title>Menu</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-card (click)="openPage(info)">
+  <ion-card class="hide" (click)="openPage(info)">
     <ion-item>
       Mon compte
     </ion-item>
   </ion-card>
-  <ion-card (click)="openPage(command)">
+  <ion-card class="hide" (click)="openPage(command)">
     <ion-item>
       Mes commandes
     </ion-item>
   </ion-card>
-  <ion-card (click)="openPage(shop)">
+  <ion-card>
     <ion-item>
-      Nos boutiques
+      Longrich Shop
     </ion-item>
   </ion-card>
   <ion-card (click)="openPage(contact)">
@@ -42,7 +42,7 @@
       Conditions d'utilisation
     </ion-item>
   </ion-card>
-  <ion-card *ngIf="state_log" (click)="logout()">
+  <ion-card class="hide" *ngIf="state_log" (click)="logout()">
     <ion-item color="danger">
       Déconnexion
     </ion-item>
